@@ -2,9 +2,9 @@ import React from 'react'
 
 import Krist from './../../assets/Krist.svg';
 
-function Logo() {
+function Logo({className}) {
   return (
-    <div>
+    <div className={`${className}`}>
         <img src={Krist} alt="" />
     </div>
   )

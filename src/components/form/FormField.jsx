@@ -5,11 +5,11 @@ const FormField = ({ type, label, name, value, onChange, options }) => {
     case "text":
       return (
         <div className="flex flex-col">
-          <label className="block text-base font-medium leading-6 text-secondary-text">
+          <label className="text-base mb-2">
             {label}
           </label>
           <input
-            className="p-2 mt-2 block w-full rounded-md border-0 py-1.5 shadow-sm outline-none bg-lightbg ring-1 focus:ring-2 focus:ring-primary "
+            className="h-14 p-4 border-[1px] border-primary rounded-[0.625rem]"
             type="text"
             name={name}
             value={value}

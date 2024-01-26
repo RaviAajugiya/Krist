@@ -8,20 +8,25 @@ import {
 } from "react-router-dom";
 import Layout from "./components/common/Layout";
 import Login from "./components/login/Login";
-import './index.css';
-
+import "./index.css";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import Home from "./components/home/Home";
+import { URL } from "./components/config/URLHelper.js";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
-      <Route path="" element={<Login />} />
+    <Route path={URL.HOME} element={<Layout />}>
+      <Route path={URL.HOME} element={<Home />} />
+      <Route path={URL.AUTH} element={<Login />} />
     </Route>
   )
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-    {/* <Logo/> */}
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );

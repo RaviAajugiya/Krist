@@ -1,9 +1,69 @@
-import React from 'react'
+import React from "react";
+import { NavLink } from "react-router-dom";
+import Logo from "../common/Logo";
+import Button from "../common/Button";
+import { logout } from "../../redux/authSlice";
+import { useDispatch } from "react-redux";
+import { URL } from "../config/URLHelper";
+import { useNavigate } from "react-router-dom";
+import { CiSearch, CiShoppingCart, CiHeart } from "react-icons/ci";
+import { VscAccount } from "react-icons/vsc";
+import { IoIosMenu } from "react-icons/io";
+
 
 function Header() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
-    <div>Header</div>
-  )
+    <header className="flex items-center justify-between h-16 px-5 lg:px-20 lg:h-20">
+      <Logo className="w-24" />
+      <nav>
+        <ul className="hidden md:flex gap-7 text-base">
+          <li>
+            <NavLink to={URL.HOME} activeClassName="active">
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={URL.HOME} activeClassName="active">
+              Shop
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={URL.HOME} activeClassName="active">
+              Our Story
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={URL.HOME} activeClassName="active">
+              Blog
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={URL.HOME} activeClassName="active">
+              Contact Us
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
+      <div className="flex gap-5 items-center">
+        {/* <CiSearch className="size-6"/> */}
+        {/* <CiHeart className="size-6"/> */}
+        <CiShoppingCart className="size-6" />
+        <VscAccount className="hidden md:block size-6" />
+        <IoIosMenu className="md:hidden size-7"/>
+        <Button
+          className=" hidden md:block p-2 w-24"
+          onClick={() => {
+            localStorage.removeItem("email");
+            dispatch(logout());
+            navigate(URL.HOME);
+          }}>
+          Logout
+        </Button>
+      </div>
+    </header>
+  );
 }
 
-export default Header
+export default Header;
