@@ -38,7 +38,7 @@ function Home() {
           <Product />
           <Product />
         </div>
-        <div className="mt-10 flex flex-col gap-5 p-3 md:flex-row-reverse">
+        <div className="mt-10 flex flex-col gap-5 p-3 px-5 md:flex-row-reverse">
           <h2 className="md:hidden text-3xl font-semiboldbold text-center mb-5 ">
             Deals of the Month
           </h2>
@@ -54,7 +54,7 @@ function Home() {
               possimus recusandae, qui alias minima necessitatibus! Autem fuga
               minus amet ipsa at perspiciatis dolorum.
             </p>
-            <div className="flex gap-3 m-auto md:m-0 w-fit pb-3">
+            <div className="flex gap-3 m-auto md:m-0 w-fit pb-3 flex-wrap">
               <div className="border border-[#b9b9b9] rounded-lg px-4 py-1 ">
                 <p className="text-center font-extrabold text-2xl">120</p>
                 <p className="text-center">Days</p>

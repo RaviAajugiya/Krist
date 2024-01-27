@@ -15,11 +15,11 @@ function Footer() {
   return (
     <>
       <footer className="pt-10 bg-primary-color text-white-color ">
-        <div className="flex justify-between flex-wrap gap-10 max-w-[1400px] m-auto">
+        <div className="flex justify-between flex-wrap md:gap-10 px-5 max-w-[1400px] m-auto">
           <div className="mb-16 max-w-[270px]">
             <div className="space-y-4">
-              <Logo className="scale-125 ml-8 invert" />
-              <div className="flex flex-col gap-5 pt-8">
+              <Logo className=" scale-75 lg:scale-100 invert" />
+              <div className="flex flex-col gap-5 ">
                 <p className="flex  items-center gap-3 ">
                   <Icon path={mdiWalletBifoldOutline} size={1} className="" />
                   <span>
@@ -57,7 +57,7 @@ function Footer() {
           />
 
           <div>
-            <p className="text-3xl">Download app</p>
+            <p className="text-2xl">Download app</p>
             <div className="flex p-2 items-center gap-4 mt-10 mb-5 border-0 rounded-lg bg-primary-color">
               <Icon path={mdiApple} size={1.5} />
               <div>
