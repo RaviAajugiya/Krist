@@ -84,7 +84,7 @@ function Login() {
             Please {isLoginPage ? "login" : "sign up"} here
           </p>
         </div>
-        <div className="">
+        <div>
           <form
             className="flex w-full  m-auto flex-col gap-4"
             onSubmit={formik.handleSubmit}
