@@ -3,4 +3,5 @@ export const URL = {
   AUTH: "/auth",
   PRODUCT: "/productLising",
   PRODUCTDETAIL: "/productDetail",
+  CART: "/cart",
 };

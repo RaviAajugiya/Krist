@@ -15,6 +15,7 @@ import Home from "./components/home/Home";
 import { URL } from "./components/config/URLHelper.js";
 import ProductListing from "./components/productListing/ProductListing.jsx";
 import ProductDetail from "./components/productDetail/productDetail.jsx";
+import Cart from "./components/cart/Cart.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route path={URL.AUTH} element={<Login />} />
       <Route path={URL.PRODUCT} element={<ProductListing />} />
       <Route path={URL.PRODUCTDETAIL} element={<ProductDetail />} />
+      <Route path={URL.CART} element={<Cart />} />
     </Route>
   )
 );

@@ -14,7 +14,7 @@ function FooterIteam({ heading, items }) {
         <p className="text-3xl">{heading}</p>
         <div className="flex flex-col gap-5 pt-8">
           {items.map((item) => (
-            <p key={item} className="text-[#9CA3AF] ">
+            <p key={item} className="">
               {item}
             </p>
           ))}

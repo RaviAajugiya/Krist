@@ -1,12 +1,11 @@
 import React, { useId, useState } from "react";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
-import { motion } from "framer-motion";
 
 function Filter({ title, items }) {
   const [isIteamVisible, setIsIteamVisible] = useState(false);
   return (
     <>
-      <div className="flex w-full flex-col  p-3 text-primary">
+      <div className="flex w-full flex-col  p-3 text-primary-color">
         <div
           onClick={() => setIsIteamVisible(!isIteamVisible)}
           className="flex justify-between items-center"

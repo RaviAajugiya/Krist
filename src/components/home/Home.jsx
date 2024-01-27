@@ -20,9 +20,9 @@ function Home() {
   }
 
   return (
-    <div className="h-[calc(100vh - 0.5rem)] ">
+    <div className="h-[calc(100vh - 0.5rem)]">
       <Banner />
-      <div className="px-2 lg:px-32">
+      <div className="max-w-[1400px] m-auto">
         <h2 className="mt-16 text-center text-4xl font-semibold mb-8">
           Our Bestseller
         </h2>

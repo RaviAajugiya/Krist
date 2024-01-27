@@ -79,7 +79,7 @@ function Login() {
       <div className="w-full flex flex-col justify-center px-4 lg:w-2/5 max-w-[600px] m-auto lg:m-auto ">
         <div className="mb-7">
           <Logo className="w-36 m-auto mb-8" />
-          <h2 className="text-3xl text-primary">welcome</h2>
+          <h2 className="text-3xl text-primary-color">welcome</h2>
           <p className="text-base text-light-grey">
             Please {isLoginPage ? "login" : "sign up"} here
           </p>
@@ -87,7 +87,8 @@ function Login() {
         <div className="">
           <form
             className="flex w-full  m-auto flex-col gap-4"
-            onSubmit={formik.handleSubmit}>
+            onSubmit={formik.handleSubmit}
+          >
             <DynamicForm
               fields={fields}
               values={formik.values}
