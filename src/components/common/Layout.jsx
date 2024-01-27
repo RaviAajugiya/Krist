@@ -10,10 +10,10 @@ function Layout() {
   return (
     <>
       {isAuth ? <Header /> : null}
-      <main className="h-svh lg:h-screen">
+      {/* <main className="h-svh lg:h-screen"> */}
         <Outlet />
-      </main>
-      {/* {isAuth ? <Footer /> : null} */}
+      {/* </main> */}
+      {isAuth ? <Footer /> : null}
     </>
   );
 }

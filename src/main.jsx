@@ -13,12 +13,16 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import Home from "./components/home/Home";
 import { URL } from "./components/config/URLHelper.js";
+import ProductListing from "./components/productListing/ProductListing.jsx";
+import ProductDetail from "./components/productDetail/productDetail.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path={URL.HOME} element={<Layout />}>
       <Route path={URL.HOME} element={<Home />} />
       <Route path={URL.AUTH} element={<Login />} />
+      <Route path={URL.PRODUCT} element={<ProductListing />} />
+      <Route path={URL.PRODUCTDETAIL} element={<ProductDetail />} />
     </Route>
   )
 );
