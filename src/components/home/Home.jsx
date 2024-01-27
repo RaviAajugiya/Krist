@@ -38,12 +38,12 @@ function Home() {
           <Product />
           <Product />
         </div>
-        <div className="mt-10 flex flex-col gap-5 p-3 md:flex-row">
+        <div className="mt-10 flex flex-col gap-5 p-3 md:flex-row-reverse">
           <h2 className="md:hidden text-3xl font-semiboldbold text-center mb-5 ">
             Deals of the Month
           </h2>
           <div className="w-full md:w-[750px]">
-            <img src="https://placehold.co/400" alt="" className="" />
+            <img src={Deal} alt="" className="" />
           </div>
           <div className="w-full space-y-3 md:w-3/5 flex flex-col justify-center">
             <h2 className="hidden md:block text-3xl font-semiboldbold text-center mb-5 md:text-left md:text-4xl">
