@@ -9,9 +9,10 @@ import {
   useGetProductByIdQuery,
 } from "../../redux/api/productApi";
 import { useParams } from "react-router-dom";
+import { useAddToCartMutation } from "../../redux/api/cartApi";
 
 function ProductDetail() {
-  const [count, setCount] = useState(1);
+  const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
 
   const [products, setProducts] = useState([]);
@@ -29,7 +30,9 @@ function ProductDetail() {
   }, [productsData, id]);
   useEffect(() => {
     setProduct(listingProduct?.data);
-  }, [id]);
+  }, [listingProduct, id]);
+
+  const [addToCart] = useAddToCartMutation();
 
   return (
     <>
@@ -98,43 +101,45 @@ function ProductDetail() {
           </div>
 
           {/* <ul className="flex flex-col gap-3 mt-5">
-            <li>
-              Offer on 4GB+128GB: Enjoy $5 Coupon | $5 Bank Offer
-              <span className="text-primary"> Learn More</span>
-            </li>
-            <li>
-              Offer On 6GB+128GB: Enjoy $10 Off{" "}
-              <span className="text-primary"> Learn More</span>
-            </li>
-            <li>
-              Save 18%: Get GST Invoice an save 18% on business purchase
-              <span className="text-primary"> Learn More</span>
-            </li>
-            <li>
-              MobiKwik offer: Get Upto $5 cashback
-              <span className="text-primary"> Learn More</span>
-            </li>
-          </ul> */}
+              <li>
+                Offer on 4GB+128GB: Enjoy $5 Coupon | $5 Bank Offer
+                <span className="text-primary"> Learn More</span>
+              </li>
+              <li>
+                Offer On 6GB+128GB: Enjoy $10 Off{" "}
+                <span className="text-primary"> Learn More</span>
+              </li>
+              <li>
+                Save 18%: Get GST Invoice an save 18% on business purchase
+                <span className="text-primary"> Learn More</span>
+              </li>
+              <li>
+                MobiKwik offer: Get Upto $5 cashback
+                <span className="text-primary"> Learn More</span>
+              </li>
+            </ul> */}
 
           <div className="flex gap-3 my-5">
             <div className="flex items-center border border-primary-color w-fit rounded-md">
               <span
                 className="py-1 px-2"
-                onClick={() => setCount((prev) => prev + 1)}
-              >
+                onClick={() => setQuantity((prev) => prev + 1)}>
                 <IoMdAdd />
               </span>
               <span className="py-1 px-3 border-x border-primary-border">
-                {count}
+                {quantity}
               </span>
               <span
                 className="py-1 px-2"
-                onClick={() => setCount((prev) => prev - 1)}
-              >
+                onClick={() => setQuantity((prev) => prev - 1)}>
                 <IoMdRemove />
               </span>
             </div>
-            <Button className="w-40 flex-grow">Add To Cart</Button>
+            <Button
+              className="w-40 flex-grow"
+              onClick={() => addToCart({ id, quantity })}>
+              Add To Cart
+            </Button>
             <Button className="bg-white-color text-primary-color border-primary-color border">
               <CiHeart className="text-primary-color size-6" />
             </Button>
