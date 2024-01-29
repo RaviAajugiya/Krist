@@ -7,7 +7,7 @@ import { IoGridOutline } from "react-icons/io5";
 function ProductListing() {
   return (
     <div>
-      <div className="max-w-[1400px] m-auto flex">
+      <div className="max-w-[1300px] m-auto flex my -5">
         <div className="hidden lg:block min-w-56 bg-violate h-fit">
           <Filter
             title="Filter By Category"
@@ -25,8 +25,8 @@ function ProductListing() {
         <div>
           <div className="flex justify-between px-9">
             <div className="flex gap-5 mb-3">
-              <IoGridOutline className="size-7" />
-              <TfiLayoutListThumb className="size-7" />
+              <IoGridOutline className="size-6" />
+              <TfiLayoutListThumb className="size-6" />
               <span>Showing 1—16 of 72 results</span>
             </div>
             <div>Sort By</div>

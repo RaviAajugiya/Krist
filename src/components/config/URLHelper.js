@@ -1,7 +1,7 @@
 export const URL = {
   HOME: "",
   AUTH: "/auth",
-  PRODUCT: "/productLising",
+  SHOP: "/shop",
   PRODUCTDETAIL: "/productDetail",
   CART: "/cart",
 };

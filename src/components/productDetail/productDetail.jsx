@@ -10,8 +10,8 @@ function ProductDetail() {
 
   return (
     <>
-      <div className=" px-5 md:flex justify-between gap-10 flex-wrap text-primary max-w-[1400px] m-auto">
-        <div className="w-full md:w-1/2 max-w-[400px] m-auto">
+      <div className=" px-5 md:flex justify-between gap-10 flex-wrap text-primary max-w-[1300px] m-auto">
+        <div className="w-full lg:w-1/2 max-w-[400px] m-auto">
           <img src="https://placehold.co/400" alt="" className="m-auto " />
           <div className="hidden sm:flex justify-between mt-10">
             <img src="https://placehold.co/400" alt="" className="w-1/5" />
@@ -20,7 +20,7 @@ function ProductDetail() {
             <img src="https://placehold.co/400" alt="" className="w-1/5" />
           </div>
         </div>
-        <div className="w-full md:w-1/2 pt-5 text-base ">
+        <div className="w-full lg:w-1/2 pt-5 text-base ">
           <h1 className="text-2xl font-semibold">
             Nike Phantom GX 2 Elite LV8{" "}
           </h1>
@@ -76,7 +76,7 @@ function ProductDetail() {
             </div>
           </div>
 
-          <ul className="flex flex-col gap-3 mt-5">
+          {/* <ul className="flex flex-col gap-3 mt-5">
             <li>
               Offer on 4GB+128GB: Enjoy $5 Coupon | $5 Bank Offer
               <span className="text-primary"> Learn More</span>
@@ -93,10 +93,10 @@ function ProductDetail() {
               MobiKwik offer: Get Upto $5 cashback
               <span className="text-primary"> Learn More</span>
             </li>
-          </ul>
+          </ul> */}
 
           <div className="flex gap-3 my-5">
-            {/* <div className="flex my-1 items-center border-2 border-primary-border w-fit rounded-md">
+            <div className="flex items-center border border-primary-color w-fit rounded-md">
             <span
               className="py-1 px-2"
               onClick={() => setCount((prev) => prev + 1)}
@@ -112,8 +112,8 @@ function ProductDetail() {
             >
               <IoMdRemove />
             </span>
-          </div> */}
-            <Button className="w-40">Add To Cart</Button>
+          </div>
+            <Button className="w-40 flex-grow">Add To Cart</Button>
             <Button className="bg-white-color text-primary-color border-primary-color border">
               <CiHeart className="text-primary-color size-6" />
             </Button>
@@ -121,7 +121,7 @@ function ProductDetail() {
         </div>
       </div>
 
-      <div className="max-w-[1400px] m-auto">
+      <div className="max-w-[1300px] m-auto">
         <h2 className="text-3xl mt-10 mb-5 font-semibold text-center">
           Releted Products
         </h2>

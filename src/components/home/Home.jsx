@@ -22,8 +22,8 @@ function Home() {
   return (
     <div className="h-[calc(100vh - 0.5rem)]">
       <Banner />
-      <div className="max-w-[1400px] m-auto">
-        <h2 className="mt-16 text-center text-4xl font-semibold mb-8">
+      <div className="max-w-[1300px] m-auto">
+        <h2 className="text-2xl mt-10 text-center md:text-3xl font-semibold mb-8">
           Our Bestseller
         </h2>
         <div className="flex flex-wrap">

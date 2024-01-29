@@ -7,7 +7,7 @@ import CartIteamCard from "./CartIteamCard";
 
 function Cart() {
   return (
-    <div className="max-w-[1400px] px-5 m-auto">
+    <div className="max-w-[1300px] px-5 m-auto">
       <h2 className="text-3xl font-semibold mt-5">Checkout</h2>
       <div className="flex gap-10 flex-wrap">
         <div className="flex-grow  w-full sm:w-8/12 mt-7 ">

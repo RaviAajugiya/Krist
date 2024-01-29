@@ -15,8 +15,8 @@ function Footer() {
   return (
     <>
       <footer className="pt-10 bg-primary-color text-white-color ">
-        <div className="flex justify-between flex-wrap md:gap-10 px-5 max-w-[1400px] m-auto">
-          <div className="mb-16 max-w-[270px]">
+        <div className="flex justify-between flex-wrap md:gap-10 px-5 max-w-[1300px] m-auto">
+          <div className="mb-8 max-w-[270px]">
             <div className="space-y-4">
               <Logo className=" scale-75 lg:scale-100 invert" />
               <div className="flex flex-col gap-5 ">
@@ -56,7 +56,7 @@ function Footer() {
             ]}
           />
 
-          <div>
+          <div className="p-3">
             <p className="text-2xl">Download app</p>
             <div className="flex p-2 items-center gap-4 mt-10 mb-5 border-0 rounded-lg bg-primary-color">
               <Icon path={mdiApple} size={1.5} />
