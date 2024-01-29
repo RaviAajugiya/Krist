@@ -1,18 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StarRatings from "react-star-ratings";
 import Button from "../common/Button";
 import { IoIosArrowRoundForward, IoMdAdd, IoMdRemove } from "react-icons/io";
 import { CiHeart } from "react-icons/ci";
 import Product from "../home/Product";
+import {
+  useGetListingProductQuery,
+  useGetProductByIdQuery,
+} from "../../redux/api/productApi";
+import { useParams } from "react-router-dom";
 
 function ProductDetail() {
   const [count, setCount] = useState(1);
+  const { id } = useParams();
+
+  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState();
+  const { data: listingProduct } = useGetProductByIdQuery(id);
+
+  const { data: productsData } = useGetListingProductQuery({
+    page: 1,
+    limit: 5,
+  });
+
+  useEffect(() => {
+    setProducts(productsData?.data?.products || []);
+    setProduct(listingProduct?.data);
+  }, [productsData, id]);
+  useEffect(() => {
+    setProduct(listingProduct?.data);
+  }, [id]);
 
   return (
     <>
       <div className=" px-5 md:flex justify-between gap-10 flex-wrap text-primary max-w-[1300px] m-auto">
         <div className="w-full lg:w-1/2 max-w-[400px] m-auto">
-          <img src="https://placehold.co/400" alt="" className="m-auto " />
+          <img src={product?.mainImage.url} alt="" className="m-auto " />
           <div className="hidden sm:flex justify-between mt-10">
             <img src="https://placehold.co/400" alt="" className="w-1/5" />
             <img src="https://placehold.co/400" alt="" className="w-1/5" />
@@ -21,10 +44,8 @@ function ProductDetail() {
           </div>
         </div>
         <div className="w-full lg:w-1/2 pt-5 text-base ">
-          <h1 className="text-2xl font-semibold">
-            Nike Phantom GX 2 Elite LV8{" "}
-          </h1>
-          <h3 className="">FG Low-Top Football Boot</h3>
+          <h1 className="text-2xl font-semibold">{product?.name}</h1>
+          <h3 className=""> {product?.description}</h3>
           <p className="text-secondary-text my-2 ">
             <StarRatings
               rating={4.5}
@@ -36,8 +57,8 @@ function ProductDetail() {
             />
           </p>
           <div className="flex items-center mt-1">
-            <span className=" font-semibold">38.00</span>
-            <s className="text-light-grey ml-2">38.00</s>
+            <span className=" font-semibold">${product?.price}</span>
+            <s className="text-light-grey ml-2">${product?.price}</s>
           </div>
           <p className="mt-2">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
@@ -97,22 +118,22 @@ function ProductDetail() {
 
           <div className="flex gap-3 my-5">
             <div className="flex items-center border border-primary-color w-fit rounded-md">
-            <span
-              className="py-1 px-2"
-              onClick={() => setCount((prev) => prev + 1)}
-            >
-              <IoMdAdd />
-            </span>
-            <span className="py-1 px-3 border-x border-primary-border">
-              {count}
-            </span>
-            <span
-              className="py-1 px-2"
-              onClick={() => setCount((prev) => prev - 1)}
-            >
-              <IoMdRemove />
-            </span>
-          </div>
+              <span
+                className="py-1 px-2"
+                onClick={() => setCount((prev) => prev + 1)}
+              >
+                <IoMdAdd />
+              </span>
+              <span className="py-1 px-3 border-x border-primary-border">
+                {count}
+              </span>
+              <span
+                className="py-1 px-2"
+                onClick={() => setCount((prev) => prev - 1)}
+              >
+                <IoMdRemove />
+              </span>
+            </div>
             <Button className="w-40 flex-grow">Add To Cart</Button>
             <Button className="bg-white-color text-primary-color border-primary-color border">
               <CiHeart className="text-primary-color size-6" />
@@ -126,11 +147,16 @@ function ProductDetail() {
           Releted Products
         </h2>
         <div className="flex flex-wrap mb-10">
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
+          {products.map((product) => (
+            <Product
+              key={product.id}
+              name={product.name}
+              price={product.price}
+              description={product.description}
+              img={product.mainImage}
+              id={product._id}
+            />
+          ))}
         </div>
       </div>
     </>

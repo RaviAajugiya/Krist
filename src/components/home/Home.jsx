@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/authSlice";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -8,16 +8,17 @@ import Product from "./Product";
 import Deal from "./../../assets/output_image.png";
 import Button from "../common/Button";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { authHelper } from "../../redux/authHelper";
+import { useLoginMutation } from "../../redux/api/authApi";
+import { useGetAllProductsQuery } from "../../redux/api/productApi";
+
 function Home() {
-  const navigate = useNavigate();
-  const user = localStorage.getItem("email");
-  const dispatch = useDispatch();
-  if (user) {
-    dispatch(login({ email: user }));
-    console.log(user);
-  } else {
-    navigate(URL.AUTH);
-  }
+  const [products, setProducts] = useState([]);
+  const { data: productsData } = useGetAllProductsQuery();
+
+  useEffect(() => {
+    setProducts(productsData?.data?.products || []);
+  }, [productsData]);
 
   return (
     <div className="h-[calc(100vh - 0.5rem)]">
@@ -26,17 +27,16 @@ function Home() {
         <h2 className="text-2xl mt-10 text-center md:text-3xl font-semibold mb-8">
           Our Bestseller
         </h2>
-        <div className="flex flex-wrap">
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
+        <div className="flex flex-wrap ">
+          {products.map((product) => (
+            <Product
+              key={product.id}
+              name={product.name}
+              price={product.price}
+              description={product.description}
+              img={product.mainImage}
+            />
+          ))}
         </div>
         <div className="mt-10 flex flex-col gap-5 p-3 px-5 md:flex-row-reverse">
           <h2 className="md:hidden text-3xl font-semiboldbold text-center mb-5 ">

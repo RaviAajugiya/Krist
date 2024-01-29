@@ -8,13 +8,52 @@ import DynamicForm from "../form/DynamicForm";
 import Button from "../common/Button";
 import Logo from "./../common/Logo.jsx";
 import { useDispatch } from "react-redux";
-import { login } from "../../redux/authSlice.js";
+import { login } from "../../redux/authSlice";
+import { useLoginMutation, useRegisterMutation } from "../../redux/api/authApi.js";
+import { loginForm, registerForm } from "../config/constant.js";
 
 function Login() {
   const [isLoginPage, setIsLoginPage] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const [authLogin, { data: loginData, error }] = useLoginMutation();
+  const [authRegister] = useRegisterMutation();
+
+  useEffect(() => {
+    if (loginData) {
+      localStorage.setItem("userData", JSON.stringify(loginData));
+      dispatch(login(loginData));
+      navigate("/");
+    }
+    if (error) {
+      alert("something went wrong");
+    }
+  }, [loginData, error]);
+
+  const fields = isLoginPage
+    ? loginForm.loginFields
+    : registerForm.registerFields;
+
+  const initialValues = isLoginPage
+    ? loginForm.loginInitialValues
+    : registerForm.registerInitialValues;
+
+  const validationSchema = isLoginPage
+    ? loginForm.LoginValidationSchema
+    : registerForm.RegisterValidationSchema;
+
+
+
+  const onSubmit = (values) => {
+    // console.log(values);
+    isLoginPage ? authLogin(values) : authRegister(values);
+    // authLogin({
+    //   password: "admin",
+    //   username: "admin",
+    // });
+  };
 
   useEffect(() => {
     if (isLoginPage) {
@@ -23,39 +62,6 @@ function Login() {
       setSearchParams({ page: "signup" });
     }
   }, [isLoginPage, setIsLoginPage]);
-
-  const fields = [
-    { type: "text", label: "Email address", name: "email" },
-    { type: "text", label: "Password", name: "password" },
-  ];
-
-  const initialValues = {
-    email: "",
-    password: "",
-  };
-
-  if (!isLoginPage) {
-    fields.unshift({
-      type: "text",
-      label: "Full name",
-      name: "name",
-    });
-    initialValues.name = "";
-  }
-
-  const validationSchema = Yup.object().shape({
-    name: isLoginPage ? Yup.string() : Yup.string().required("Required"),
-    email: Yup.string().email("Invalid email").required("Required"),
-    password: Yup.string().required("Required"),
-  });
-
-  const onSubmit = (values) => {
-    console.log(values);
-    localStorage.setItem("email", values.email);
-    dispatch(login({ email: values.email }));
-    setSearchParams({});
-    navigate("/");
-  };
 
   const handleChange = (e) => {
     formik.handleChange(e);

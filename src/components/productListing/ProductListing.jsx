@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Product from "../home/Product";
 import Filter from "./Filter";
 import { TfiLayoutListThumb } from "react-icons/tfi";
 import { IoGridOutline } from "react-icons/io5";
+import { useGetListingProductQuery } from "../../redux/api/productApi";
 
 function ProductListing() {
+  const [products, setProducts] = useState([]);
+  const { data: productsData } = useGetListingProductQuery({
+    page: 1,
+    limit: 12,
+  });
+
+  useEffect(() => {
+    setProducts(productsData?.data?.products || []);
+    console.log(products);
+  }, [productsData]);
+
   return (
     <div>
       <div className="max-w-[1300px] m-auto flex my -5">
@@ -32,18 +44,16 @@ function ProductListing() {
             <div>Sort By</div>
           </div>
           <div className="flex flex-wrap">
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
-            <Product />
+            {products.map((product) => (
+              <Product
+                key={product.id}
+                name={product.name}
+                price={product.price}
+                description={product.description}
+                img={product.mainImage}
+                id={product._id}
+              />
+            ))}
           </div>
         </div>
       </div>

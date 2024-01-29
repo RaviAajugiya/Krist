@@ -12,7 +12,7 @@
   "dependencies": {
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
-    "@reduxjs/toolkit": "^2.0.1",
+    "@reduxjs/toolkit": "^2.1.0",
     "firebase": "^10.7.2",
     "formik": "^2.4.5",
     "framer-motion": "^10.18.0",
