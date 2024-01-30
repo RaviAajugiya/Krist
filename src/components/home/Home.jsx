@@ -14,11 +14,13 @@ import { useGetAllProductsQuery } from "../../redux/api/productApi";
 
 function Home() {
   const [products, setProducts] = useState([]);
-  const { data: productsData } = useGetAllProductsQuery();
+  const { data: productsData,isLoading } = useGetAllProductsQuery();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setProducts(productsData?.data?.products || []);
   }, [productsData]);
+
 
   return (
     <div className="h-[calc(100vh - 0.5rem)]">
@@ -35,6 +37,7 @@ function Home() {
               price={product.price}
               description={product.description}
               img={product.mainImage}
+              id={product._id}
             />
           ))}
         </div>

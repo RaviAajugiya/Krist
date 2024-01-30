@@ -11,6 +11,7 @@ import { VscAccount } from "react-icons/vsc";
 import { IoIosMenu } from "react-icons/io";
 import Menu from "./Menu";
 import Overlay from "../common/Overlay";
+import { useUserLogoutMutation } from "../../redux/api/authApi";
 
 function Header() {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ function Header() {
   const userData = useSelector((state) => state.authSlice.userData);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userLogout] = useUserLogoutMutation();
 
   return (
     <header className="flex items-center justify-between h-16 lg:h-20 max-w-[1300px] px-5 m-auto">
@@ -26,29 +28,19 @@ function Header() {
       <nav>
         <ul className="hidden md:flex gap-7 text-base">
           <li>
-            <NavLink to={URL.HOME} activeClassName="active">
-              Home
-            </NavLink>
+            <NavLink to={URL.HOME}>Home</NavLink>
           </li>
           <li>
-            <NavLink to={URL.SHOP} activeClassName="active">
-              Shop
-            </NavLink>
+            <NavLink to={URL.SHOP}>Shop</NavLink>
           </li>
           <li>
-            <NavLink to={URL.HOME} activeClassName="active">
-              Our Story
-            </NavLink>
+            <NavLink to={URL.HOME}>Our Story</NavLink>
           </li>
           <li>
-            <NavLink to={URL.HOME} activeClassName="active">
-              Blog
-            </NavLink>
+            <NavLink to={URL.HOME}>Blog</NavLink>
           </li>
           <li>
-            <NavLink to={URL.HOME} activeClassName="active">
-              Contact Us
-            </NavLink>
+            <NavLink to={URL.HOME}>Contact Us</NavLink>
           </li>
         </ul>
       </nav>
@@ -70,7 +62,9 @@ function Header() {
             className="hidden md:block p-2 w-24"
             onClick={() => {
               localStorage.removeItem("userData");
+              userLogout();
               dispatch(logout());
+              window.location.reload();
             }}
           >
             Logout

@@ -4,18 +4,44 @@ import Filter from "./Filter";
 import { TfiLayoutListThumb } from "react-icons/tfi";
 import { IoGridOutline } from "react-icons/io5";
 import { useGetListingProductQuery } from "../../redux/api/productApi";
+import { useGetAllCategoriesQuery } from "../../redux/api/categoryApi";
+import RangeSlider from "react-range-slider-input";
+import "react-range-slider-input/dist/style.css";
+import { useSearchParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilterProducts } from "../../redux/filterSlice";
 
 function ProductListing() {
   const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const [priceRange, setPriceRange] = useState([10, 1000]);
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const { data: productsData } = useGetListingProductQuery({
     page: 1,
-    limit: 12,
-  });
+    limit: 100,
+  });  
 
+
+  const { data: categoryData } = useGetAllCategoriesQuery();
   useEffect(() => {
     setProducts(productsData?.data?.products || []);
-    console.log(products);
   }, [productsData]);
+
+  
+
+  const searchParamsObject = Object.fromEntries(searchParams);
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      setSearchParams(() => ({
+        ...searchParamsObject,
+        minPrice: priceRange[0],
+        maxPrice: priceRange[1],
+      }));
+    }, 500);
+
+    return () => clearTimeout(delay);
+  }, [searchParams, priceRange]);
 
   return (
     <div>
@@ -23,16 +49,25 @@ function ProductListing() {
         <div className="hidden lg:block min-w-56 bg-violate h-fit">
           <Filter
             title="Filter By Category"
-            items={["Men", "Women", "Kids", "Bags"]}
+            items={categoryData?.data?.categories}
           />
-          <Filter
-            title="Filter By Price"
-            items={["Electronics", "Men", "Women", "Home & Furniture", "Books"]}
-          />
-          <Filter
-            title="Filter By Size"
-            items={["Electronics", "Men", "Women", "Home & Furniture", "Books"]}
-          />
+          <div className="p-3 text-primary-color">
+            <p className="mb-4">
+              price: ${priceRange[0]} - {priceRange[1]}
+            </p>
+            <RangeSlider
+              name="priceRange"
+              min={10}
+              max={2000}
+              step={10}
+              defaultValue={priceRange}
+              value={priceRange}
+              onInput={(value) => {
+                setPriceRange(value);
+              }}
+              
+            />
+          </div>
         </div>
         <div>
           <div className="flex justify-between px-9">
@@ -43,7 +78,7 @@ function ProductListing() {
             </div>
             <div>Sort By</div>
           </div>
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap mb-10">
             {products.map((product) => (
               <Product
                 key={product.id}

@@ -8,24 +8,26 @@ import {
   useDeleteCartItemMutation,
   useGetCartItemsQuery,
 } from "../../redux/api/cartApi";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
-  const [cartDetails, setCartDetails] = useState({});
-
   const { data: cartData } = useGetCartItemsQuery();
+  
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    setCartDetails(cartData);
-  }, [cartData, cartDetails]);
+  const userData = useSelector((state) => state.authSlice.userData);
+  !userData ? navigate("/") : null;
 
   return (
     <div className="max-w-[1300px] px-5 m-auto">
       <h2 className="text-3xl font-semibold pt-5">Checkout</h2>
-      <div className="flex gap-10 flex-wrap">
+      <div className="flex gap-5 flex-wrap">
         <div className="flex-grow  w-full sm:w-8/12 mt-7 ">
-          <CartTable />
-          {cartDetails?.data?.items?.map((cartProduct) => (
+          <CartTable cartItems={cartData?.data?.items} />
+          {cartData?.data?.items?.map((cartProduct) => (
             <CartIteamCard
+              key={cartProduct.product._id}
               name={cartProduct.product.name}
               img={cartProduct.product.mainImage.url}
               price={cartProduct.product.price}
@@ -34,11 +36,11 @@ function Cart() {
             />
           ))}
         </div>
-        <div className="flex-grow flex flex-wrap gap-4 md:gap-10 ">
+        <div className="flex-grow flex flex-wrap gap-4 md:gap-10 mb-5">
           <div className="flex-grow p-5 border-2 h-fit max-w-[550px] mx-auto">
             <div className="text-lg pb-4 border-b flex justify-between font-bold">
               <span>Subtotal</span>
-              <span>${cartDetails?.data?.cartTotal}</span>
+              <span>${cartData?.data?.cartTotal}</span>
             </div>
             <div className="py-3">
               <label htmlFor="" className="block mb-1">
@@ -55,11 +57,11 @@ function Cart() {
             </div>
             <p className="flex justify-between text-lg py-2 border-b">
               <span>Delivery Charge</span>
-              <span>$50.0</span>
+              <span>${0}</span>
             </p>
             <p className="flex justify-between py-3 text-xl font-semibold">
               <span>Grand Total</span>
-              <span>$50.0</span>
+              <span>${cartData?.data?.cartTotal}</span>
             </p>
             <Button className="w-full mt-3">Proceed to Checkout</Button>
           </div>

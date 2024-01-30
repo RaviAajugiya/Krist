@@ -38,7 +38,7 @@ function ProductDetail() {
     <>
       <div className=" px-5 md:flex justify-between gap-10 flex-wrap text-primary max-w-[1300px] m-auto">
         <div className="w-full lg:w-1/2 max-w-[400px] m-auto">
-          <img src={product?.mainImage.url} alt="" className="m-auto " />
+          <img src={product?.mainImage.url} alt="" className="m-auto size-[400px]" />
           <div className="hidden sm:flex justify-between mt-10">
             <img src="https://placehold.co/400" alt="" className="w-1/5" />
             <img src="https://placehold.co/400" alt="" className="w-1/5" />

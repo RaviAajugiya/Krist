@@ -13,7 +13,7 @@ function CartItemCard({ name, img, price, quantity, id }) {
 
   useEffect(() => {
     console.log(id);
-    addToCart({ id, quantity })
+    addToCart({ id, count })
   }, [count]);
 
   const [deleteCartItem] = useDeleteCartItemMutation();

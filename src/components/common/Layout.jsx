@@ -14,7 +14,7 @@ function Layout() {
   return (
     <>
       {isAuth ? <Header /> : null}
-      <main className="min-h-[calc(100vh-316px-80px)]">
+      <main className="min-h-[calc(100vh-316px-80px)] max-h-full">
         <Outlet />
       </main>
       {isAuth ? <Footer /> : null}

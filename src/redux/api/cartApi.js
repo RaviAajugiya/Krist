@@ -14,12 +14,13 @@ export const cartApi = createApi({
     },
   }),
   tagTypes: ["Cart"],
+
   endpoints: (builder) => ({
     getCartItems: builder.query({
       query: () => ({
         method: "GET",
       }),
-      invalidatesTags: ["Cart"],
+      providesTags: ["Cart"],
     }),
     addToCart: builder.mutation({
       query: (args) => {
@@ -37,8 +38,8 @@ export const cartApi = createApi({
         method: "DELETE",
         url: `item/${id}`,
       }),
+      invalidatesTags: ["Cart"],
     }),
-    invalidatesTags: ["Cart"],
   }),
 });
 

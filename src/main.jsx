@@ -32,11 +32,7 @@ const router = createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    {/* <ApiProvider api={authApi}> */}
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
-    {/* </ApiProvider> */}
-  </React.StrictMode>
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
 );

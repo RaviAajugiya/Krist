@@ -1,27 +1,61 @@
-import React, { useId, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
+import { useSearchParams } from "react-router-dom";
 
 function Filter({ title, items }) {
-  const [isIteamVisible, setIsIteamVisible] = useState(false);
+  const [isItemVisible, setIsItemVisible] = useState(true);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleChange = (e) => {
+    const itemName = e.target.name;
+
+    setSelectedCategories((prevCategories) => {
+      const isItemSelected = prevCategories.includes(itemName);
+
+      if (isItemSelected) {
+        return prevCategories.filter((category) => category !== itemName);
+      } else {
+        return [...prevCategories, itemName];
+      }
+    });
+  };
+
+  const searchParamsObject = Object.fromEntries(searchParams);
+
+
+  useEffect(() => {
+    setSearchParams({})
+    if (selectedCategories.length !== 0) {
+      setSearchParams((prevCategories) => {
+        return { ...prevCategories, categories: selectedCategories.join(",") };
+      });
+    }
+  }, [selectedCategories]);
+
   return (
     <>
-      <div className="flex w-full flex-col  p-3 text-primary-color">
+      <div className="flex w-full flex-col p-3 text-primary-color">
         <div
-          onClick={() => setIsIteamVisible(!isIteamVisible)}
+          onClick={() => setIsItemVisible(!isItemVisible)}
           className="flex justify-between items-center"
         >
           <h3 className="text-lg font-semibold">{title}</h3>
-          {isIteamVisible ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
+          {isItemVisible ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
         </div>
-        {isIteamVisible ? (
+        {isItemVisible ? (
           <div className="flex flex-col mt-4">
-            {items.map((item) => (
-              <>
-                <div className="flex gap-2">
-                  <input type="checkbox" name="" id={item} />
-                  <label htmlFor={item}>{item}</label>
-                </div>
-              </>
+            {items?.map((item) => (
+              <div className="flex gap-2" key={item._id}>
+                <input
+                  type="checkbox"
+                  name={item.name}
+                  id={item._id}
+                  checked={selectedCategories.includes(item.name)}
+                  onChange={(e) => handleChange(e)}
+                />
+                <label htmlFor={item._id}>{item.name}</label>
+              </div>
             ))}
           </div>
         ) : null}

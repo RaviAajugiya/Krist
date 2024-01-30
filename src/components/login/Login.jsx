@@ -27,9 +27,6 @@ function Login() {
       dispatch(login(loginData));
       navigate("/");
     }
-    if (error) {
-      alert("something went wrong");
-    }
   }, [loginData, error]);
 
   const fields = isLoginPage
@@ -74,7 +71,7 @@ function Login() {
   });
 
   return (
-    <div className="flex gap-4 h-full">
+    <div className="flex gap-4 h-screen">
       <div className="hidden lg:block lg:justify-around h-svh overflow-hidden w-fit mix-blend-multiply">
         <img
           src={isLoginPage ? LoginImg : signUpImg}
