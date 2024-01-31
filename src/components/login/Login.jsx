@@ -9,7 +9,10 @@ import Button from "../common/Button";
 import Logo from "./../common/Logo.jsx";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/authSlice";
-import { useLoginMutation, useRegisterMutation } from "../../redux/api/authApi.js";
+import {
+  useLoginMutation,
+  useRegisterMutation,
+} from "../../redux/api/authApi.js";
 import { loginForm, registerForm } from "../config/constant.js";
 
 function Login() {
@@ -18,8 +21,8 @@ function Login() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [authLogin, { data: loginData, error }] = useLoginMutation();
-  const [authRegister] = useRegisterMutation();
+  const [authLogin, { data: loginData }] = useLoginMutation();
+  const [authRegister, { data: registerData }] = useRegisterMutation();
 
   useEffect(() => {
     if (loginData) {
@@ -27,7 +30,10 @@ function Login() {
       dispatch(login(loginData));
       navigate("/");
     }
-  }, [loginData, error]);
+    if (registerData) {
+      setIsLoginPage(true)
+    }
+  }, [loginData, registerData]);
 
   const fields = isLoginPage
     ? loginForm.loginFields
@@ -40,8 +46,6 @@ function Login() {
   const validationSchema = isLoginPage
     ? loginForm.LoginValidationSchema
     : registerForm.RegisterValidationSchema;
-
-
 
   const onSubmit = (values) => {
     // console.log(values);

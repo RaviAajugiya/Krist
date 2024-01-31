@@ -31,7 +31,7 @@ function Cart() {
               name={cartProduct.product.name}
               img={cartProduct.product.mainImage.url}
               price={cartProduct.product.price}
-              quantity={cartProduct.quantity}
+              itemCount={cartProduct.quantity}
               id={cartProduct.product._id}
             />
           ))}

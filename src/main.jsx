@@ -1,4 +1,4 @@
-import React from "react";
+import React, { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import {
   Route,
@@ -18,6 +18,8 @@ import ProductDetail from "./components/productDetail/productDetail.jsx";
 import Cart from "./components/cart/Cart.jsx";
 import { authApi } from "./redux/api/authApi.js";
 import { ApiProvider } from "@reduxjs/toolkit/query/react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,7 +34,10 @@ const router = createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <Provider store={store}>
-    <RouterProvider router={router} />
-  </Provider>
+  // <StrictMode>
+    <Provider store={store}>
+      <ToastContainer />
+      <RouterProvider router={router} />
+    </Provider>
+  // </StrictMode>
 );

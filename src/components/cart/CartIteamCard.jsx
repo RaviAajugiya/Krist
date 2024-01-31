@@ -7,14 +7,9 @@ import {
   useDeleteCartItemMutation,
 } from "../../redux/api/cartApi";
 
-function CartItemCard({ name, img, price, quantity, id }) {
-  const [count, setCount] = useState(quantity);
+function CartItemCard({ name, img, price, itemCount, id }) {
+  const [count, setCount] = useState(itemCount);
   const [addToCart] = useAddToCartMutation();
-
-  useEffect(() => {
-    console.log(id);
-    addToCart({ id, count })
-  }, [count]);
 
   const [deleteCartItem] = useDeleteCartItemMutation();
 
@@ -40,13 +35,21 @@ function CartItemCard({ name, img, price, quantity, id }) {
         <div className="flex mt-2 items-center border border-primary-color w-fit rounded-md">
           <span
             className="py-1 px-2 text-primary cursor-pointer"
-            onClick={() => setCount((prev) => prev + 1)}>
+            onClick={() => {
+              setCount((prev) => prev + 1);
+              addToCart({ id: id, quantity: count });
+            }}
+          >
             <IoMdAdd />
           </span>
           <span className="py-1 px-1 -border">{count}</span>
           <span
             className="py-1 px-2 text-primary cursor-pointer"
-            onClick={() => setCount((prev) => Math.max(prev - 1, 1))}>
+            onClick={() => {
+              setCount((prev) => Math.max(prev - 1, 1));
+              addToCart({ id: id, quantity: count });
+            }}
+          >
             <IoMdRemove />
           </span>
         </div>

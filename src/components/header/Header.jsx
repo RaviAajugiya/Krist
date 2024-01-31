@@ -28,19 +28,44 @@ function Header() {
       <nav>
         <ul className="hidden md:flex gap-7 text-base">
           <li>
-            <NavLink to={URL.HOME}>Home</NavLink>
+            <NavLink
+              to={URL.HOME}
+              className={({ isActive }) => (isActive ? "font-semibold" : null)}
+            >
+              Home
+            </NavLink>
           </li>
           <li>
-            <NavLink to={URL.SHOP}>Shop</NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? "font-semibold" : null)}
+              to={URL.SHOP}
+            >
+              Shop
+            </NavLink>
           </li>
           <li>
-            <NavLink to={URL.HOME}>Our Story</NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? "font-semibold" : null)}
+              to={URL.HOME}
+            >
+              Our Story
+            </NavLink>
           </li>
           <li>
-            <NavLink to={URL.HOME}>Blog</NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? "font-semibold" : null)}
+              to={URL.HOME}
+            >
+              Blog
+            </NavLink>
           </li>
           <li>
-            <NavLink to={URL.HOME}>Contact Us</NavLink>
+            <NavLink
+              className={({ isActive }) => (isActive ? "font-semibold" : null)}
+              to={URL.HOME}
+            >
+              Contact Us
+            </NavLink>
           </li>
         </ul>
       </nav>

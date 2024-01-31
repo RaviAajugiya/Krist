@@ -10,12 +10,19 @@ import Button from "../common/Button";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { authHelper } from "../../redux/authHelper";
 import { useLoginMutation } from "../../redux/api/authApi";
-import { useGetAllProductsQuery } from "../../redux/api/productApi";
+import { useGetAllProductsQuery, useGetListingProductQuery } from "../../redux/api/productApi";
+
 
 function Home() {
   const [products, setProducts] = useState([]);
-  const { data: productsData, isLoading } = useGetAllProductsQuery();
+
+  const { data: productsData, isLoading } = useGetListingProductQuery({
+    page: 1,
+    limit: 10,
+  });
   const dispatch = useDispatch();
+  
+
 
   useEffect(() => {
     setProducts(productsData?.data?.products || []);

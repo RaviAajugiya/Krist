@@ -20,6 +20,7 @@ export const loginForm = {
 export const registerForm = {
   registerFields: [
     { type: "text", label: "Username", name: "username" },
+    // { type: "text", label: "Username", name: "username" },
     { type: "email", label: "Email", name: "email" },
     { type: "text", label: "Password", name: "password" },
   ],

@@ -8,16 +8,29 @@ import {
   useGetListingProductQuery,
   useGetProductByIdQuery,
 } from "../../redux/api/productApi";
-import { useParams } from "react-router-dom";
-import { useAddToCartMutation } from "../../redux/api/cartApi";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useAddToCartMutation,
+  useGetCartItemsQuery,
+} from "../../redux/api/cartApi";
+import { URL } from "../config/URLHelper";
+import { toast } from "react-toastify";
 
 function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [product, setProduct] = useState();
   const { data: listingProduct } = useGetProductByIdQuery(id);
+  const [isProductInCart, setIsProductInCart] = useState(false);
+
+  const { data: cartData } = useGetCartItemsQuery();
+  useEffect(() => {
+    setIsProductInCart(
+      cartData?.data?.items.some((item) => item.product._id === id)
+    );
+  }, [cartData]);
 
   const { data: productsData } = useGetListingProductQuery({
     page: 1,
@@ -28,17 +41,28 @@ function ProductDetail() {
     setProducts(productsData?.data?.products || []);
     setProduct(listingProduct?.data);
   }, [productsData, id]);
+  
   useEffect(() => {
     setProduct(listingProduct?.data);
   }, [listingProduct, id]);
 
-  const [addToCart] = useAddToCartMutation();
+  const [addToCart, { isSuccess }] = useAddToCartMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success(`Product successfully added to cart`);
+    }
+  }, [isSuccess]);
 
   return (
     <>
       <div className=" px-5 md:flex justify-between gap-10 flex-wrap text-primary max-w-[1300px] m-auto">
         <div className="w-full lg:w-1/2 max-w-[400px] m-auto">
-          <img src={product?.mainImage.url} alt="" className="m-auto size-[400px]" />
+          <img
+            src={product?.mainImage.url}
+            alt=""
+            className="m-auto size-[400px]"
+          />
           <div className="hidden sm:flex justify-between mt-10">
             <img src="https://placehold.co/400" alt="" className="w-1/5" />
             <img src="https://placehold.co/400" alt="" className="w-1/5" />
@@ -100,30 +124,12 @@ function ProductDetail() {
             </div>
           </div>
 
-          {/* <ul className="flex flex-col gap-3 mt-5">
-              <li>
-                Offer on 4GB+128GB: Enjoy $5 Coupon | $5 Bank Offer
-                <span className="text-primary"> Learn More</span>
-              </li>
-              <li>
-                Offer On 6GB+128GB: Enjoy $10 Off{" "}
-                <span className="text-primary"> Learn More</span>
-              </li>
-              <li>
-                Save 18%: Get GST Invoice an save 18% on business purchase
-                <span className="text-primary"> Learn More</span>
-              </li>
-              <li>
-                MobiKwik offer: Get Upto $5 cashback
-                <span className="text-primary"> Learn More</span>
-              </li>
-            </ul> */}
-
           <div className="flex gap-3 my-5">
             <div className="flex items-center border border-primary-color w-fit rounded-md">
               <span
                 className="py-1 px-2"
-                onClick={() => setQuantity((prev) => prev + 1)}>
+                onClick={() => setQuantity((prev) => prev + 1)}
+              >
                 <IoMdAdd />
               </span>
               <span className="py-1 px-3 border-x border-primary-border">
@@ -131,14 +137,20 @@ function ProductDetail() {
               </span>
               <span
                 className="py-1 px-2"
-                onClick={() => setQuantity((prev) => prev - 1)}>
+                onClick={() => setQuantity((prev) => prev - 1)}
+              >
                 <IoMdRemove />
               </span>
             </div>
             <Button
               className="w-40 flex-grow"
-              onClick={() => addToCart({ id, quantity })}>
-              Add To Cart
+              onClick={() => {
+                !isProductInCart
+                  ? addToCart({ id, quantity })
+                  : navigate(URL.CART);
+              }}
+            >
+              {!isProductInCart ? "Add to Cart" : "Go to Cart"}
             </Button>
             <Button className="bg-white-color text-primary-color border-primary-color border">
               <CiHeart className="text-primary-color size-6" />

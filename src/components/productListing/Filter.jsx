@@ -38,13 +38,13 @@ function Filter({ title, items }) {
       <div className="flex w-full flex-col p-3 text-primary-color">
         <div
           onClick={() => setIsItemVisible(!isItemVisible)}
-          className="flex justify-between items-center"
+          className="flex justify-between items-center cursor-pointer"
         >
           <h3 className="text-lg font-semibold">{title}</h3>
           {isItemVisible ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
         </div>
         {isItemVisible ? (
-          <div className="flex flex-col mt-4">
+          <div className="flex flex-col mt-2">
             {items?.map((item) => (
               <div className="flex gap-2" key={item._id}>
                 <input
@@ -52,7 +52,8 @@ function Filter({ title, items }) {
                   name={item.name}
                   id={item._id}
                   checked={selectedCategories.includes(item._id)}
-                  onChange={(e) => handleChange(e)}
+                  onChange={(e) => handleChange(e)
+                  }
                 />
                 <label htmlFor={item._id}>{item.name}</label>
               </div>

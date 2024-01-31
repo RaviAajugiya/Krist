@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { number } from "yup";
+import { cartApi } from "./cartApi";
 
 export const productApi = createApi({
   reducerPath: "productApi",
@@ -26,32 +27,34 @@ export const productApi = createApi({
         };
       },
     }),
-    getFilteredProduct: builder.query({
-      query: ({ categoryId, minPrice, maxPrice }) => {
-        if (!categoryId) {
-          categoryId =
-            "65b7a50651a28f9e5f2f4da2,65b7a51151a28f9e5f2f4da6,65b7a51d51a28f9e5f2f4daa";
-        }
-        const requests = categoryId.split(",").map((categoryId) => ({
-          url: `/category/${categoryId}`,
-          method: "GET",
-        }));
-        // console.log(categoryId, 'cat')
-        
-        return Promise.all(requests.map((request) => fetchBaseQuery(request)));
-      },
-      transformResponse: (responses, meta, arg) => {
-        const { minPrice, maxPrice } = arg;
+    // getProductByCategory: builder.query({
+    //   query: (id) => ({
+    //     url: `/category/${id}`,
+    //     method: "GET",
+    //   }),
+    // }),
 
-        const products = responses.data.products.flatMap(
-          (response) => response
-        );
+    // getFilteredProduct: builder.query({
+    //   query: async ({ categoryId, minPrice, maxPrice }) => {
+    //     if (!categoryId) {
+    //       categoryId =
+    //         "65b7a50651a28f9e5f2f4da2,65b9d7f02e9e4f3ae7ea326c,65b7a51151a28f9e5f2f4da6,65b7a51d51a28f9e5f2f4daa";
+    //     }
 
-        return products.filter(
-          (product) => product.price >= minPrice && product.price <= maxPrice
-        );
-      },
-    }),
+    //     const categoryIds = categoryId.split(",");
+    //     console.log(categoryIds);
+
+    //     const requests = categoryIds.map(async (categoryId) => {
+    //       const response = await fetch(
+    //         `http://localhost:8080/api/v1/ecommerce/products/category/${categoryId}`
+    //       );
+    //       return response.formData.products.json();
+    //     });
+
+    //     const results = await Promise.all(requests);
+    //     console.log(results);
+    //   },
+    // }),
   }),
 });
 
@@ -59,5 +62,5 @@ export const {
   useGetAllProductsQuery,
   useGetListingProductQuery,
   useGetProductByIdQuery,
-  useGetFilteredProductQuery,
+  // useGetFilteredProductQuery,
 } = productApi;

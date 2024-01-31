@@ -5,11 +5,13 @@ import {
   useAddToCartMutation,
   useDeleteCartItemMutation,
 } from "../../redux/api/cartApi";
+import { useNavigate } from "react-router-dom";
+import { URL } from "../config/URLHelper";
 
 function CartTableItem({ name, img, price, itemCount, id }) {
   const [count, setCount] = useState(itemCount);
   const [addToCart] = useAddToCartMutation();
-
+  const navigate = useNavigate();
   const [deleteCartItem] = useDeleteCartItemMutation();
 
   return (
@@ -19,7 +21,9 @@ function CartTableItem({ name, img, price, itemCount, id }) {
           <img src={img} alt="" className="size-20" />
         </td>
         <td>
-          <p className="text-primary font-semibold text-lg">{name}</p>
+          <p className="text-primary font-semibold text-lg cursor-pointer" onClick={() => {
+            navigate(`${URL.PRODUCTDETAIL}/${id}`);
+          }}>{name}</p>
           <p className="text-primary">Size: Regular</p>
         </td>
         <td className="">${price}</td>
@@ -29,7 +33,7 @@ function CartTableItem({ name, img, price, itemCount, id }) {
               className="py-1 px-2 text-primary cursor-pointer"
               onClick={() => {
                 setCount((prev) => prev + 1);
-                addToCart({ id: id, quantity: count });
+                addToCart({ id: id, quantity: count + 1 });
               }}
             >
               <IoMdAdd />
@@ -38,8 +42,8 @@ function CartTableItem({ name, img, price, itemCount, id }) {
             <span
               className="py-1 px-2 text-primary cursor-pointer"
               onClick={() => {
+                addToCart({ id: id, quantity: count - 1});
                 setCount((prev) => Math.max(prev - 1, 1));
-                addToCart({ id: id, quantity: count });
               }}
             >
               <IoMdRemove />
