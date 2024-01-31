@@ -8,6 +8,9 @@ export default {
         "light-grey": "#A4A1AA",
         "white-color": "#fff",
       },
+      screens: {
+        'xs': '450px', // Extra small breakpoint
+      },
     },
   },
   plugins: [],

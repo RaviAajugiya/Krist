@@ -14,13 +14,12 @@ import { useGetAllProductsQuery } from "../../redux/api/productApi";
 
 function Home() {
   const [products, setProducts] = useState([]);
-  const { data: productsData,isLoading } = useGetAllProductsQuery();
+  const { data: productsData, isLoading } = useGetAllProductsQuery();
   const dispatch = useDispatch();
 
   useEffect(() => {
     setProducts(productsData?.data?.products || []);
   }, [productsData]);
-
 
   return (
     <div className="h-[calc(100vh - 0.5rem)]">
@@ -29,7 +28,7 @@ function Home() {
         <h2 className="text-2xl mt-10 text-center md:text-3xl font-semibold mb-8">
           Our Bestseller
         </h2>
-        <div className="flex flex-wrap ">
+        <div className="px-5 grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 mx-auto ">
           {products.map((product) => (
             <Product
               key={product.id}

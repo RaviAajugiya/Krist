@@ -5,15 +5,18 @@ import { URL } from "../config/URLHelper";
 function Product({ name, price, description, img, id }) {
   const navigate = useNavigate();
   return (
-    <div className="m-auto p-2 sm:w-52 lg:w-60">
-      <img src={img?.url} alt="" className="w-full h-60 sm:h-64 lg:h-72" />
+    <div key={id} className="p-2 m-auto max-w-[220px]">
+      <img
+        src="https://assets.ajio.com/medias/sys_master/root/20231124/LFcS/6560ca8dafa4cf41f59da776/-473Wx593H-442271744-ltgrey-MODEL.jpg"
+        alt=""
+        className="h-full w-full object-cover"
+      />
       <div className="mt-2 flex flex-col gap-1">
         <p
           className="font-semibold text-xl cursor-pointer"
           onClick={() => {
             navigate(`${URL.PRODUCTDETAIL}/${id}`);
-          }}
-        >
+          }}>
           {name}
         </p>
         <p>{description}</p>

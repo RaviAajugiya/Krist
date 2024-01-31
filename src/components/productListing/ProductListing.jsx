@@ -3,13 +3,16 @@ import Product from "../home/Product";
 import Filter from "./Filter";
 import { TfiLayoutListThumb } from "react-icons/tfi";
 import { IoGridOutline } from "react-icons/io5";
-import { useGetListingProductQuery } from "../../redux/api/productApi";
+import {
+  useGetFilteredProductQuery,
+  useGetListingProductQuery,
+} from "../../redux/api/productApi";
 import { useGetAllCategoriesQuery } from "../../redux/api/categoryApi";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import { useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilterProducts } from "../../redux/filterSlice";
+import { getFilteredData, setFilterProducts } from "../../redux/filterSlice";
 
 function ProductListing() {
   const [products, setProducts] = useState([]);
@@ -17,18 +20,20 @@ function ProductListing() {
   const [priceRange, setPriceRange] = useState([10, 1000]);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { data: productsData } = useGetListingProductQuery({
-    page: 1,
-    limit: 100,
-  });  
-
-
-  const { data: categoryData } = useGetAllCategoriesQuery();
-  useEffect(() => {
-    setProducts(productsData?.data?.products || []);
-  }, [productsData]);
+  // const { data: productsData } = useGetListingProductQuery({
+  //   page: 1,
+  //   limit: 100,
+  // });
 
   
+
+  const { data: categoryData } = useGetAllCategoriesQuery();
+
+  // useEffect(() => {
+  //   setProducts(productsData?.data?.products || []);
+  // }, [productsData]);
+
+  // dispatch(setFilterProducts(productsData?.data));
 
   const searchParamsObject = Object.fromEntries(searchParams);
   useEffect(() => {
@@ -43,9 +48,30 @@ function ProductListing() {
     return () => clearTimeout(delay);
   }, [searchParams, priceRange]);
 
+
+  console.log(searchParamsObject);
+
+  const { data: filteredData, isSuccess } = useGetFilteredProductQuery(searchParamsObject);
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log(filteredData, "filt");
+      setProducts(filteredData);
+    }
+  }, [filteredData]);
+
+  console.log(filteredData);
+
+  // console.log(searchParamsObject);
+  // console.log(productsData?.data);
+
+  // console.log(
+  //   getFilteredData(productsData?.data?.products, searchParamsObject)
+  // );
+
   return (
     <div>
-      <div className="max-w-[1300px] m-auto flex my -5">
+      <div className="max-w-[1300px] m-auto flex my-5 justify-evenly">
         <div className="hidden lg:block min-w-56 bg-violate h-fit">
           <Filter
             title="Filter By Category"
@@ -58,14 +84,13 @@ function ProductListing() {
             <RangeSlider
               name="priceRange"
               min={10}
-              max={2000}
+              max={20000}
               step={10}
               defaultValue={priceRange}
               value={priceRange}
               onInput={(value) => {
                 setPriceRange(value);
               }}
-              
             />
           </div>
         </div>
@@ -78,7 +103,7 @@ function ProductListing() {
             </div>
             <div>Sort By</div>
           </div>
-          <div className="flex flex-wrap mb-10">
+          <div className="px-5 grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 mx-auto ">
             {products.map((product) => (
               <Product
                 key={product.id}

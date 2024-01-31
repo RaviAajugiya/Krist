@@ -21,7 +21,7 @@ function ProductDetail() {
 
   const { data: productsData } = useGetListingProductQuery({
     page: 1,
-    limit: 5,
+    limit: 50,
   });
 
   useEffect(() => {

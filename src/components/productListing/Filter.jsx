@@ -8,7 +8,7 @@ function Filter({ title, items }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleChange = (e) => {
-    const itemName = e.target.name;
+    const itemName = e.target.id;
 
     setSelectedCategories((prevCategories) => {
       const isItemSelected = prevCategories.includes(itemName);
@@ -28,7 +28,7 @@ function Filter({ title, items }) {
     setSearchParams({})
     if (selectedCategories.length !== 0) {
       setSearchParams((prevCategories) => {
-        return { ...prevCategories, categories: selectedCategories.join(",") };
+        return { ...prevCategories, categoryId: selectedCategories.join(",") };
       });
     }
   }, [selectedCategories]);
@@ -51,7 +51,7 @@ function Filter({ title, items }) {
                   type="checkbox"
                   name={item.name}
                   id={item._id}
-                  checked={selectedCategories.includes(item.name)}
+                  checked={selectedCategories.includes(item._id)}
                   onChange={(e) => handleChange(e)}
                 />
                 <label htmlFor={item._id}>{item.name}</label>
