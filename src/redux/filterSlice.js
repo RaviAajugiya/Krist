@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   products: {},
-  //   productCount: null,
 };
 
 const productSlice = createSlice({
@@ -11,9 +10,6 @@ const productSlice = createSlice({
     setFilterProducts: (state, action) => {
       state.products = action.payload;
     },
-    // setProductCount: (state, action) => {
-    //   state.productCount = action.payload;
-    // },
   },
 });
 
@@ -22,7 +18,6 @@ export const getFilteredData = (
   { minPrice, maxPrice, categories }
 ) => {
   if (products) {
-    // console.log(products);
     let filteredProducts = products.filter(
       (product) => product.price >= minPrice && product.price <= maxPrice
     );

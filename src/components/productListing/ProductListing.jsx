@@ -3,41 +3,18 @@ import Product from "../home/Product";
 import Filter from "./Filter";
 import { useGetListingProductQuery } from "../../redux/api/productApi";
 import { useGetAllCategoriesQuery } from "../../redux/api/categoryApi";
-import RangeSlider from "react-range-slider-input";
-import "react-range-slider-input/dist/style.css";
-import { useSearchParams } from "react-router-dom";
+
 
 function ProductListing() {
   const [products, setProducts] = useState([]);
   const [priceRange, setPriceRange] = useState([10, 20000]);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [selectedCategory, setSelectedCategory] = useState();
+  const { data: categoryData } = useGetAllCategoriesQuery();
 
   const { data: productsData } = useGetListingProductQuery({
     page: 1,
     limit: 100,
   });
 
-  const searchParamsObject = Object.fromEntries(searchParams);
-
-  const { data: categoryData } = useGetAllCategoriesQuery();
-
-  useEffect(() => {
-    const urls = searchParamsObject?.categoryId?.split(",");
-    console.log(urls);
-    const fetchPromises = urls?.map((id) =>
-      fetch(
-        `http://localhost:8080/api/v1/ecommerce/products/category/${id}`
-      ).then((res) => res.json())
-    );
-
-    Promise.all(fetchPromises).then((responses) => {
-      let data = [];
-      responses.map((res) => {
-        data = [...data, ...res?.data?.products];
-      });
-    });
-  }, [searchParamsObject]);
 
   return (
     <div>
@@ -47,23 +24,7 @@ function ProductListing() {
             title="Filter By Category"
             items={categoryData?.data?.categories}
           />
-          <div className="p-3 text-primary-color">
-            <h3 className="text-lg font-semibold mb-2">Filter by Price</h3>
-            <p className="mb-4">
-              price: ${priceRange[0]} - {priceRange[1]}
-            </p>
-            <RangeSlider
-              name="priceRange"
-              min={10}
-              max={20000}
-              step={10}
-              defaultValue={priceRange}
-              value={priceRange}
-              onInput={(value) => {
-                setPriceRange(value);
-              }}
-            />
-          </div>
+          
         </div>
         <div>
           {/* <div className="flex justify-between px-9"> */}
