@@ -20,6 +20,7 @@ import { authApi } from "./redux/api/authApi.js";
 import { ApiProvider } from "@reduxjs/toolkit/query/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Contact from "./components/contact/Contact.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +39,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <ToastContainer />
       <RouterProvider router={router} />
+      <Contact/>
     </Provider>
   // </StrictMode>
 );

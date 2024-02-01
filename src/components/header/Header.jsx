@@ -30,40 +30,28 @@ function Header() {
           <li>
             <NavLink
               to={URL.HOME}
-              className={({ isActive }) => (isActive ? "font-semibold" : null)}
-            >
+              className={({ isActive }) => (isActive ? "font-semibold" : null)}>
               Home
             </NavLink>
           </li>
           <li>
             <NavLink
               className={({ isActive }) => (isActive ? "font-semibold" : null)}
-              to={URL.SHOP}
-            >
+              to={URL.SHOP}>
               Shop
             </NavLink>
           </li>
           <li>
             <NavLink
               className={({ isActive }) => (isActive ? "font-semibold" : null)}
-              to={URL.HOME}
-            >
+              to={URL.HOME}>
               Our Story
             </NavLink>
           </li>
           <li>
             <NavLink
               className={({ isActive }) => (isActive ? "font-semibold" : null)}
-              to={URL.HOME}
-            >
-              Blog
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              className={({ isActive }) => (isActive ? "font-semibold" : null)}
-              to={URL.HOME}
-            >
+              to={URL.HOME}>
               Contact Us
             </NavLink>
           </li>
@@ -90,8 +78,7 @@ function Header() {
               userLogout();
               dispatch(logout());
               window.location.reload();
-            }}
-          >
+            }}>
             Logout
           </Button>
         ) : (
@@ -99,8 +86,7 @@ function Header() {
             className="hidden md:block p-2 w-24"
             onClick={() => {
               navigate(URL.AUTH);
-            }}
-          >
+            }}>
             Login
           </Button>
         )}

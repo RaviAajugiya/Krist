@@ -11,6 +11,7 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import { authHelper } from "../../redux/authHelper";
 import { useLoginMutation } from "../../redux/api/authApi";
 import { useGetAllProductsQuery, useGetListingProductQuery } from "../../redux/api/productApi";
+import Story from "./Story";
 
 
 function Home() {
@@ -86,6 +87,9 @@ function Home() {
               <IoIosArrowRoundForward className="size-6" />
             </Button>
           </div>
+        </div>
+        <div>
+          <Story/>
         </div>
       </div>
     </div>
