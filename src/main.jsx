@@ -30,6 +30,7 @@ const router = createBrowserRouter(
       <Route path={URL.SHOP} element={<ProductListing />} />
       <Route path={`${URL.PRODUCTDETAIL}/:id`} element={<ProductDetail />} />
       <Route path={URL.CART} element={<Cart />} />
+      <Route path={URL.CONTACT} element={<Contact />} />
     </Route>
   )
 );
@@ -39,7 +40,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <ToastContainer />
       <RouterProvider router={router} />
-      <Contact/>
     </Provider>
   // </StrictMode>
 );

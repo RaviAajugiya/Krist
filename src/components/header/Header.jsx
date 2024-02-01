@@ -43,15 +43,15 @@ function Header() {
           </li>
           <li>
             <NavLink
-              className={({ isActive }) => (isActive ? "font-semibold" : null)}
-              to={URL.HOME}>
+              // className={({ isActive }) => (isActive ? "font-semibold" : null)}
+              to={URL.STORY}>
               Our Story
             </NavLink>
           </li>
           <li>
             <NavLink
               className={({ isActive }) => (isActive ? "font-semibold" : null)}
-              to={URL.HOME}>
+              to={URL.CONTACT}>
               Contact Us
             </NavLink>
           </li>

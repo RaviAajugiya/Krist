@@ -15,7 +15,7 @@ function Footer() {
   return (
     <>
       <footer className="pt-10 bg-primary-color text-white-color ">
-        <div className="flex justify-between flex-wrap md:gap-10 px-5 max-w-[1300px] m-auto">
+        <div className="flex justify-evenly flex-wrap md:gap-10 px-5 max-w-[1300px] m-auto">
           <div className="mb-8 max-w-[270px]">
             <div className="space-y-4">
               <Logo className=" scale-75 lg:scale-100 invert" />

@@ -4,4 +4,6 @@ export const URL = {
   SHOP: "/shop",
   PRODUCTDETAIL: "/productDetail",
   CART: "/cart",
+  CONTACT: "/contact",
+  STORY: "#our-story",
 };

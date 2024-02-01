@@ -9,7 +9,7 @@ import {
 
 function FooterIteam({ heading, items }) {
   return (
-    <div className="mb-8 max-w-[270px] p-3">
+    <div className="mb-8 w-[250px] p-3">
       <div className="space-y-4">
         <p className="text-2xl">{heading}</p>
         <div className="flex flex-col gap-5 pt-4">
