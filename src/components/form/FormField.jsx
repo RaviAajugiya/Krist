@@ -22,7 +22,7 @@ const FormField = ({ type, label, name, value, onChange, options }) => {
           <label className="text-base mb-2">{label}</label>
           <input
             className="h-14 p-4 border-[1px] border-primary-color rounded-[0.625rem]"
-            type="text"
+            type={type}
             name={name}
             value={value}
             onChange={onChange}

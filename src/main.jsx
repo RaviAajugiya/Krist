@@ -16,8 +16,6 @@ import { URL } from "./components/config/URLHelper.js";
 import ProductListing from "./components/productListing/ProductListing.jsx";
 import ProductDetail from "./components/productDetail/productDetail.jsx";
 import Cart from "./components/cart/Cart.jsx";
-import { authApi } from "./redux/api/authApi.js";
-import { ApiProvider } from "@reduxjs/toolkit/query/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Contact from "./components/contact/Contact.jsx";
@@ -25,7 +23,7 @@ import Contact from "./components/contact/Contact.jsx";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path={URL.HOME} element={<Layout />}>
-      <Route path={URL.HOME} element={<Home />} />
+      <Route path="" element={<Home />} />
       <Route path={URL.AUTH} element={<Login />} />
       <Route path={URL.SHOP} element={<ProductListing />} />
       <Route path={`${URL.PRODUCTDETAIL}/:id`} element={<ProductDetail />} />
@@ -36,10 +34,8 @@ const router = createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <StrictMode>
-    <Provider store={store}>
-      <ToastContainer />
-      <RouterProvider router={router} />
-    </Provider>
-  // </StrictMode>
+  <Provider store={store}>
+    <ToastContainer />
+    <RouterProvider router={router} />
+  </Provider>
 );

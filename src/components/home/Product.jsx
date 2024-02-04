@@ -9,6 +9,7 @@ import {
 import { toast } from "react-toastify";
 
 function Product({ name, price, description, img, id }) {
+  console.log(img);
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [addToCart, { isSuccess }] = useAddToCartMutation();
@@ -36,6 +37,7 @@ function Product({ name, price, description, img, id }) {
       >
         <img
           src="https://assets.ajio.com/medias/sys_master/root/20231124/LFcS/6560ca8dafa4cf41f59da776/-473Wx593H-442271744-ltgrey-MODEL.jpg"
+          // src={img.url}
           alt=""
           className="min-w-[200px] min-h-[250px] object-cover"
         />
@@ -60,7 +62,7 @@ function Product({ name, price, description, img, id }) {
       </div>
       <div className="mt-2 flex flex-col gap-1">
         <p
-          className="font-semibold text-xl cursor-pointer"
+          className="font-semibold text-xl cursor-pointer line-clamp-1"
           onClick={() => {
             navigate(`${URL.PRODUCTDETAIL}/${id}`);
           }}

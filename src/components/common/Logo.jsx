@@ -1,13 +1,16 @@
-import React from 'react'
+import React from "react";
+import Krist from "./../../assets/Krist.svg";
+import { Link } from "react-router-dom";
+import { URL } from "../config/URLHelper";
 
-import Krist from './../../assets/Krist.svg';
-
-function Logo({className}) {
+function Logo({ className }) {
   return (
-    <div className={`${className}`}>
+    <Link to={URL.HOME}>
+      <div className={`${className}`}>
         <img src={Krist} alt="" />
-    </div>
-  )
+      </div>
+    </Link>
+  );
 }
 
-export default Logo
+export default Logo;

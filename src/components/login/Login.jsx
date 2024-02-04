@@ -50,10 +50,6 @@ function Login() {
   const onSubmit = (values) => {
     // console.log(values);
     isLoginPage ? authLogin(values) : authRegister(values);
-    // authLogin({
-    //   password: "admin",
-    //   username: "admin",
-    // });
   };
 
   useEffect(() => {
@@ -104,12 +100,12 @@ function Login() {
               touched={formik.touched}
             />
             <div className="text-base text-right flex justify-between">
-              <span onClick={() => setIsLoginPage((prev) => !prev)}>
+              <span className="cursor-pointer" onClick={() => setIsLoginPage((prev) => !prev)}>
                 {isLoginPage
                   ? "Create New Account"
                   : "Already have an account?"}
               </span>
-              <span className="">Forgot Password?</span>
+              <span className="cursor-pointer">Forgot Password?</span>
             </div>
             <Button className="mt-4" type="submit">
               {isLoginPage ? "login" : "sign up"}

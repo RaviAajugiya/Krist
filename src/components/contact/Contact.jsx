@@ -8,9 +8,6 @@ const Contact = () => {
           <div className="-mx-4 flex flex-wrap lg:justify-between">
             <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
               <div className="mb-12 max-w-[570px] lg:mb-0">
-                {/* <span className="mb-4 block text-base font-semibold text-primary">
-                  Contact Us
-                </span> */}
                 <h2 className="mb-6 text-[32px] font-bold uppercase   sm:text-[40px] lg:text-[36px] xl:text-[40px]">
                   GET IN TOUCH WITH US
                 </h2>

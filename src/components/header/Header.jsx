@@ -16,8 +16,12 @@ import { useUserLogoutMutation } from "../../redux/api/authApi";
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const localData = localStorage.getItem("userData");
   const userData = useSelector((state) => state.authSlice.userData);
+
+  if (localData && !userData) {
+    dispatch(login(JSON.parse(localData)));
+  }
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userLogout] = useUserLogoutMutation();
@@ -30,28 +34,31 @@ function Header() {
           <li>
             <NavLink
               to={URL.HOME}
-              className={({ isActive }) => (isActive ? "font-semibold" : null)}>
+              className={({ isActive }) => (isActive ? "font-semibold" : null)}
+            >
               Home
             </NavLink>
           </li>
           <li>
             <NavLink
               className={({ isActive }) => (isActive ? "font-semibold" : null)}
-              to={URL.SHOP}>
+              to={URL.SHOP}
+            >
               Shop
             </NavLink>
           </li>
           <li>
             <NavLink
-              // className={({ isActive }) => (isActive ? "font-semibold" : null)}
-              to={URL.STORY}>
+              to={URL.STORY}
+            >
               Our Story
             </NavLink>
           </li>
           <li>
             <NavLink
               className={({ isActive }) => (isActive ? "font-semibold" : null)}
-              to={URL.CONTACT}>
+              to={URL.CONTACT}
+            >
               Contact Us
             </NavLink>
           </li>
@@ -59,7 +66,8 @@ function Header() {
       </nav>
       {isMenuOpen ? <Menu toggleMenu={(val) => setIsMenuOpen(val)} /> : null}
       {isMenuOpen ? <Overlay /> : null}
-      <div className="flex gap-5 items-center">
+
+      <div className="flex gap-3 items-center">
         <CiShoppingCart className="size-6" onClick={() => navigate(URL.CART)} />
         <p className="flex gap-3 text-xl items-center">
           <VscAccount className="hidden md:block size-6" />
@@ -78,7 +86,8 @@ function Header() {
               userLogout();
               dispatch(logout());
               window.location.reload();
-            }}>
+            }}
+          >
             Logout
           </Button>
         ) : (
@@ -86,7 +95,8 @@ function Header() {
             className="hidden md:block p-2 w-24"
             onClick={() => {
               navigate(URL.AUTH);
-            }}>
+            }}
+          >
             Login
           </Button>
         )}

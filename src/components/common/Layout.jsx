@@ -3,13 +3,10 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import { URL } from "../config/URLHelper";
-import { authHelper } from "../../redux/authHelper";
 
 function Layout() {
   const location = useLocation();
   const isAuth = location.pathname !== URL.AUTH;
-
-  authHelper();
 
   return (
     <>

@@ -15,6 +15,7 @@ import {
 } from "../../redux/api/cartApi";
 import { URL } from "../config/URLHelper";
 import { toast } from "react-toastify";
+import ProductQuantity from "../common/ProductQuantity";
 
 function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
@@ -24,6 +25,9 @@ function ProductDetail() {
   const [product, setProduct] = useState();
   const { data: listingProduct } = useGetProductByIdQuery(id);
   const [isProductInCart, setIsProductInCart] = useState(false);
+
+  const colors = ["bg-red-500", "bg-green-500", "bg-blue-500", "bg-orange-500"];
+  const size = ["S", "M", "L", "XL", "XXL"];
 
   const { data: cartData } = useGetCartItemsQuery();
   useEffect(() => {
@@ -41,7 +45,7 @@ function ProductDetail() {
     setProducts(productsData?.data?.products || []);
     setProduct(listingProduct?.data);
   }, [productsData, id]);
-  
+
   useEffect(() => {
     setProduct(listingProduct?.data);
   }, [listingProduct, id]);
@@ -72,7 +76,7 @@ function ProductDetail() {
         </div>
         <div className="w-full lg:w-1/2 pt-5 text-base ">
           <h1 className="text-2xl font-semibold">{product?.name}</h1>
-          <h3 className=""> {product?.description}</h3>
+          {/* <h3 className=""> {product?.description}</h3> */}
           <p className="text-secondary-text my-2 ">
             <StarRatings
               rating={4.5}
@@ -93,57 +97,36 @@ function ProductDetail() {
             voluptate ea eligendi libero, pariatur veritatis impedit beatae
             error, placeat qui dignissimos.
           </p>
+
           <div>
             <h3 className="py-3 text-lg font-semibold">Color</h3>
             <div className="flex gap-2 justify-start flex-1">
-              <div className="bg-red-500 flex gap-2 p-[14px] rounded-[0.200em]  border-primary"></div>
-              <div className="bg-green-500 flex gap-2 p-[14px] rounded-[0.200em]  border-primary"></div>
-              <div className="bg-blue-500 flex gap-2 p-[14px] rounded-[0.200em]  border-primary"></div>
-              <div className="bg-yellow-400 flex gap-2 p-[14px] rounded-[0.200em]  border-primary"></div>
-              <div className="bg-orange-500 flex gap-2 p-[14px] rounded-[0.200em]  border-primary"></div>
-            </div>
-          </div>
-          <div>
-            <h3 className="py-3 text-lg font-semibold">Size</h3>
-            <div className="flex gap-2 justify-start flex-1">
-              <div className="bg-primary-color text-white p-1 w-9 text-center border border-primary-color rounded-[0.200em] border-primary">
-                S
-              </div>
-              <div className="p-1 w-9 text-center border border-primary-color rounded-[0.200em]  border-primary">
-                M
-              </div>
-              <div className="p-1 w-9 text-center border border-primary-color rounded-[0.200em]  border-primary">
-                L
-              </div>
-              <div className="p-1 w-9 text-center border border-primary-color rounded-[0.200em]  border-primary">
-                XL
-              </div>
-              <div className="p-1 w-9 text-center border border-primary-color rounded-[0.200em]  border-primary">
-                XXL
-              </div>
+              {colors.map((color) => (
+                <div
+                  className={`${color} flex gap-2 p-[14px] rounded-[0.200em]  border-primary`}
+                ></div>
+              ))}
             </div>
           </div>
 
-          <div className="flex gap-3 my-5">
-            <div className="flex items-center border border-primary-color w-fit rounded-md">
-              <span
-                className="py-1 px-2"
-                onClick={() => setQuantity((prev) => prev + 1)}
-              >
-                <IoMdAdd />
-              </span>
-              <span className="py-1 px-3 border-x border-primary-border">
-                {quantity}
-              </span>
-              <span
-                className="py-1 px-2"
-                onClick={() => setQuantity((prev) => prev - 1)}
-              >
-                <IoMdRemove />
-              </span>
+          <div>
+            <h3 className="py-3 text-lg font-semibold">Size</h3>
+            <div className="flex gap-2 justify-start flex-1">
+              {size.map((size) => (
+                <div
+                  key={size}
+                  className="bg-primary-color text-white p-1 w-9 text-center border border-primary-color rounded-[0.200em] border-primary"
+                >
+                  {size}
+                </div>
+              ))}
             </div>
+          </div>
+
+          <div className="flex gap-3 my-5 h-12">
+            <ProductQuantity quantity={quantity} setQuantity={setQuantity} />
             <Button
-              className="w-40 flex-grow"
+              className="w-40 flex-grow "
               onClick={() => {
                 !isProductInCart
                   ? addToCart({ id, quantity })
