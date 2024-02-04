@@ -33,20 +33,29 @@ function ProductListing() {
 
     Promise.all(fetchProductsPromises).then((productsByCategory) => {
       const combinedProducts = productsByCategory.flat();
-      const filteredProducts = combinedProducts.filter((product) => {
-        return (
-          product.price >= params.minprice && product.price <= params.maxprice
-        );
-      });
-      if (filteredProducts.length !== 0) {
+      const filteredProducts = priceFilter(
+        combinedProducts,
+        params.minPrice,
+        params.maxPrice
+      );
+      console.log(combinedProducts);
+      console.log(filteredProducts);
+      if (filteredProducts?.length !== 0) {
         setProducts(filteredProducts);
       }
     });
   }, [searchParams]);
 
   const priceFilter = (product, minPrice, maxPrice) => {
-    const filteredProducts = product.filter((product) => {
-      return product.price >= minPrice && product.price <= maxprice;
+    console.log(product, products);
+    if (product.length === 0) {
+      product = products;
+    }
+    console.log(product, products);
+
+    console.log("filter", product, minPrice, maxPrice);
+    const filteredProducts = product?.filter((product) => {
+      return product.price >= minPrice && product.price <= maxPrice;
     });
     return filteredProducts;
   };

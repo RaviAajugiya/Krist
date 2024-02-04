@@ -8,14 +8,14 @@ function Filter({ title, items }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isItemVisible, setIsItemVisible] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const [priceRange, setPriceRange] = useState([10, 20000]);
+  const [priceRange, setPriceRange] = useState([10, 500]);
 
   useEffect(() => {
     const categories = searchParams.getAll("category");
     setSelectedCategories(categories);
-    
-    const minPrice = parseFloat(searchParams.get("minprice")) || 10;
-    const maxPrice = parseFloat(searchParams.get("maxprice")) || 20000;
+
+    const minPrice = parseFloat(searchParams.get("minPrice")) || 10;
+    const maxPrice = parseFloat(searchParams.get("maxPrice")) || 500;
     setPriceRange([minPrice, maxPrice]);
   }, []);
 
@@ -25,20 +25,36 @@ function Filter({ title, items }) {
       : [...selectedCategories, itemId];
 
     const categoryParam = updatedCategories.join(",");
-    setSearchParams({ category: categoryParam, minprice: priceRange[0], maxprice: priceRange[1] }, { replace: true });
+    setSearchParams(
+      {
+        category: categoryParam,
+        minPrice: priceRange[0],
+        maxPrice: priceRange[1],
+      },
+      { replace: true }
+    );
 
     setSelectedCategories(updatedCategories);
   };
 
   const handlePriceRangeChange = (value) => {
-    setSearchParams({ category: selectedCategories.join(","), minprice: value[0], maxprice: value[1] }, { replace: true });
+    setSearchParams(
+      {
+        category: selectedCategories.join(","),
+        minPrice: value[0],
+        maxPrice: value[1],
+      },
+      { replace: true }
+    );
     setPriceRange(value);
   };
 
   return (
     <>
       <div className="flex w-full flex-col p-3 text-primary-color">
-        <div onClick={() => setIsItemVisible(!isItemVisible)} className="flex justify-between items-center cursor-pointer">
+        <div
+          onClick={() => setIsItemVisible(!isItemVisible)}
+          className="flex justify-between items-center cursor-pointer">
           <h3 className="text-lg font-semibold">{title}</h3>
           {isItemVisible ? <TiArrowSortedUp /> : <TiArrowSortedDown />}
         </div>
@@ -67,8 +83,8 @@ function Filter({ title, items }) {
         <RangeSlider
           name="priceRange"
           min={10}
-          max={20000}
-          step={1000}
+          max={500}
+          step={50}
           defaultValue={priceRange}
           value={priceRange}
           onInput={handlePriceRangeChange}

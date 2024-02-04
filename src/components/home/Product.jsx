@@ -9,13 +9,12 @@ import {
 import { toast } from "react-toastify";
 
 function Product({ name, price, description, img, id }) {
-  console.log(img);
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [addToCart, { isSuccess }] = useAddToCartMutation();
   const { data: cartData } = useGetCartItemsQuery();
   const [isProductInCart, setIsProductInCart] = useState(false);
-  
+
   useEffect(() => {
     setIsProductInCart(
       cartData?.data?.items.some((item) => item.product._id === id)
@@ -33,8 +32,7 @@ function Product({ name, price, description, img, id }) {
       <div
         className="relative"
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
+        onMouseLeave={() => setIsHovered(false)}>
         <img
           src="https://assets.ajio.com/medias/sys_master/root/20231124/LFcS/6560ca8dafa4cf41f59da776/-473Wx593H-442271744-ltgrey-MODEL.jpg"
           // src={img.url}
@@ -49,13 +47,12 @@ function Product({ name, price, description, img, id }) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.99 }}
             transition={{ duration: 0.2 }}
-            className="m-2 absolute w-full bottom-0  bg-black bg-opacity-55 text-white px-4 py-2 rounded-md cursor-pointer"
+            className="m-2 absolute w-[calc(100%-1rem)]  bottom-0 left-0 bg-black bg-opacity-55 text-white px-4 py-2 rounded-md cursor-pointer"
             onClick={() => {
               !isProductInCart
                 ? addToCart({ id, quantity: 1 })
                 : navigate(URL.CART);
-            }}
-          >
+            }}>
             {!isProductInCart ? "Add to Cart" : "Go to Cart"}
           </motion.button>
         )}
@@ -65,8 +62,7 @@ function Product({ name, price, description, img, id }) {
           className="font-semibold text-xl cursor-pointer line-clamp-1"
           onClick={() => {
             navigate(`${URL.PRODUCTDETAIL}/${id}`);
-          }}
-        >
+          }}>
           {name}
         </p>
         <p className="line-clamp-1">{description}</p>

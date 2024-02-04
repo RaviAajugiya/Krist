@@ -33,8 +33,14 @@ function CartItemCard({ name, img, price, itemCount, id }) {
         />
       </div>
 
-      <div className="flex items-center justify-between">
-        <ProductQuantity className=""  quantity={count} setQuantity={setCount} />
+      <div className="flex items-center justify-between mt-2">
+        <ProductQuantity
+          className="w-20"
+          quantity={count}
+          setQuantity={setCount}
+          isCartCounter="true"
+          id={id}
+        />
         <span className=" text-lg font-semibold">Total : ${count * price}</span>
       </div>
     </div>

@@ -11,10 +11,12 @@ function CartTable({ cartItems }) {
       <table className="w-full">
         <thead>
           <tr className="bg-primary text-left">
-            <th className="pb-4">Products</th>
+            <th className="pb-4">Product</th>
+            <th className="pb-4">Name</th>
             <th className="pb-4">Price</th>
             <th className="pb-4">Quantity</th>
             <th className="pb-4">Subtotal</th>
+            <th className="pb-4">Action</th>
           </tr>
         </thead>
         <tbody>

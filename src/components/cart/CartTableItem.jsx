@@ -7,6 +7,7 @@ import {
 } from "../../redux/api/cartApi";
 import { useNavigate } from "react-router-dom";
 import { URL } from "../config/URLHelper";
+import ProductQuantity from "../common/ProductQuantity";
 
 function CartTableItem({ name, img, price, itemCount, id }) {
   const [count, setCount] = useState(itemCount);
@@ -28,27 +29,13 @@ function CartTableItem({ name, img, price, itemCount, id }) {
         </td>
         <td className="">${price}</td>
         <td className="">
-          <div className="flex items-center border border-primary-color w-fit rounded-lg">
-            <span
-              className="py-1 px-2 text-primary cursor-pointer"
-              onClick={() => {
-                setCount((prev) => prev + 1);
-                addToCart({ id: id, quantity: count + 1 });
-              }}
-            >
-              <IoMdAdd />
-            </span>
-            <span className="py-1 px-3  -border">{count}</span>
-            <span
-              className="py-1 px-2 text-primary cursor-pointer"
-              onClick={() => {
-                addToCart({ id: id, quantity: count - 1});
-                setCount((prev) => Math.max(prev - 1, 1));
-              }}
-            >
-              <IoMdRemove />
-            </span>
-          </div>
+        <ProductQuantity
+          className="w-20"
+          quantity={count}
+          setQuantity={setCount}
+          isCartCounter="true"
+          id={id}
+        />
         </td>
         <td className="py-2 px-4 font-semibold">${count * price}</td>
         <td className="py-2 px-4">
