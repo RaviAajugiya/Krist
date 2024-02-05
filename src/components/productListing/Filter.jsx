@@ -24,29 +24,36 @@ function Filter({ title, items }) {
       ? selectedCategories.filter((id) => id !== itemId)
       : [...selectedCategories, itemId];
 
-    const categoryParam = updatedCategories.join(",");
+    const categoryParam =
+      updatedCategories.length > 0 ? updatedCategories.join(",") : undefined;
+
+    const params = {
+      minPrice: priceRange[0],
+      maxPrice: priceRange[1],
+    };
+
+    if (categoryParam) {
+      params.category = categoryParam;
+    }
+
+    setSearchParams(params, { replace: true });
+    setSelectedCategories(updatedCategories);
+  };
+
+  const handlePriceRangeChange = (value) => {
+    setPriceRange(value);
+  };
+  
+  const handlePriceRangeDragEnd = () => {
     setSearchParams(
       {
-        category: categoryParam,
+        category: selectedCategories.join(","),
         minPrice: priceRange[0],
         maxPrice: priceRange[1],
       },
       { replace: true }
     );
-
-    setSelectedCategories(updatedCategories);
-  };
-
-  const handlePriceRangeChange = (value) => {
-    setSearchParams(
-      {
-        category: selectedCategories.join(","),
-        minPrice: value[0],
-        maxPrice: value[1],
-      },
-      { replace: true }
-    );
-    setPriceRange(value);
+    console.log("Price range drag end");
   };
 
   return (
@@ -88,6 +95,7 @@ function Filter({ title, items }) {
           defaultValue={priceRange}
           value={priceRange}
           onInput={handlePriceRangeChange}
+          onThumbDragEnd={handlePriceRangeDragEnd}
         />
       </div>
     </>

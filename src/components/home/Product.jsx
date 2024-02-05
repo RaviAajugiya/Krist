@@ -28,16 +28,16 @@ function Product({ name, price, description, img, id }) {
   }, [isSuccess]);
 
   return (
-    <div key={id} className="p-2 m-auto max-w-[220px]">
+    <div className="product-container m-auto">
       <div
-        className="relative"
+        className="product-image-container relative"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}>
         <img
           src="https://assets.ajio.com/medias/sys_master/root/20231124/LFcS/6560ca8dafa4cf41f59da776/-473Wx593H-442271744-ltgrey-MODEL.jpg"
           // src={img.url}
           alt=""
-          className="min-w-[200px] min-h-[250px] object-cover"
+          className="product-image w-fit h-fit object-cover"
         />
         {isHovered && (
           <motion.button
@@ -47,7 +47,7 @@ function Product({ name, price, description, img, id }) {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.99 }}
             transition={{ duration: 0.2 }}
-            className="m-2 absolute w-[calc(100%-1rem)]  bottom-0 left-0 bg-black bg-opacity-55 text-white px-4 py-2 rounded-md cursor-pointer"
+            className="product-button absolute w-[calc(100%-1rem)] bottom-0 left-0 bg-black bg-opacity-55 text-white px-4 py-2 rounded-md cursor-pointer"
             onClick={() => {
               !isProductInCart
                 ? addToCart({ id, quantity: 1 })
@@ -57,18 +57,18 @@ function Product({ name, price, description, img, id }) {
           </motion.button>
         )}
       </div>
-      <div className="mt-2 flex flex-col gap-1">
+      <div className="product-details mt-2 flex flex-col gap-1">
         <p
-          className="font-semibold text-xl cursor-pointer line-clamp-1"
+          className="product-name font-semibold text-xl cursor-pointer line-clamp-1"
           onClick={() => {
             navigate(`${URL.PRODUCTDETAIL}/${id}`);
           }}>
           {name}
         </p>
-        <p className="line-clamp-1">{description}</p>
-        <div className="flex items-center mt-1">
+        <p className="product-description line-clamp-1">{description}</p>
+        <div className="product-price flex items-center mt-1">
           <span className="font-semibold">${price}</span>
-          <s className="text-light-grey ml-2">${price}</s>
+          <s className="product-old-price text-light-grey ml-2">${price}</s>
         </div>
       </div>
     </div>
