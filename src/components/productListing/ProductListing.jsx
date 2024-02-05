@@ -8,7 +8,8 @@ import { IoCloseSharp } from "react-icons/io5";
 
 function ProductListing() {
   const [products, setProducts] = useState();
-  const [isFilterVisible, setisFilterVisible] = useState(false);
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
+  const [searchParams] = useSearchParams();
   const { data: categoryData } = useGetAllCategoriesQuery();
   const { data: productsData } = useGetListingProductQuery({
     page: 1,
@@ -16,23 +17,20 @@ function ProductListing() {
   });
 
   let screenWidth = window.innerWidth;
-  // useEffect(() => {
-  //   first
 
-  //   return () => {
-  //     second
-  //   }
-  // }, [third])
-
-  // if (screenWidth > 767) {
-  //   setisFilterVisible(true);
-  // }
+  useEffect(() => {
+    console.log(screenWidth);
+    if (screenWidth > 767) {
+      setIsFilterVisible(true);
+    } else {
+      setIsFilterVisible(false);
+    }
+  }, [screenWidth]);
 
   useEffect(() => {
     setProducts(productsData?.data?.products);
   }, [productsData]);
 
-  const [searchParams] = useSearchParams();
   useEffect(() => {
     console.log("Query parameters:", Object.fromEntries(searchParams));
     const params = Object.fromEntries(searchParams);
@@ -83,21 +81,29 @@ function ProductListing() {
 
   return (
     <div className="max-w-[1300px] m-auto">
-      <p className="md:hidden px-5 text-xl mb-2">Filter</p>
-      <div className=" flex mb-5 justify-evenly ">
-        <div className="absolute md:static top-16 left-0 z-10 bg-white md:block min-w-56 bg-violate h-fit">
-          <div className="flex justify-end px-3 md:hidden">
-            <IoCloseSharp className="size-5" />
+      <div className=" flex flex-col md:flex-row mb-5 justify-evenly ">
+        <div className="  top-16  bg-white md:block min-w-56 bg-violate h-fit">
+          <div className="flex px-5 mb-2 gap-2 md:hidden items-center">
+            <p
+              className="md:hidden text-xl "
+              onClick={() => setIsFilterVisible(true)}
+            >
+              Filter
+            </p>
+            <IoCloseSharp
+              className="size-5"
+              onClick={() => setIsFilterVisible(false)}
+            />
           </div>
-          <Filter
-            title="Filter By Category"
-            items={categoryData?.data?.categories}
-          />
-          {/* {isFilterVisible ? (
-          ) : null} */}
+          {isFilterVisible ? (
+            <Filter
+              title="Filter By Category"
+              items={categoryData?.data?.categories}
+            />
+          ) : null}
         </div>
         <div>
-          <div className="px-5 grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-auto">
+          <div className="px-5 grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-5 mx-auto mt-3">
             {products?.map((product) => (
               <Product
                 key={product.id}

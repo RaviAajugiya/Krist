@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import StarRatings from "react-star-ratings";
 import Button from "../common/Button";
-import { IoIosArrowRoundForward, IoMdAdd, IoMdRemove } from "react-icons/io";
 import { CiHeart } from "react-icons/ci";
 import Product from "../home/Product";
 import {
@@ -28,6 +27,12 @@ function ProductDetail() {
 
   const colors = ["bg-red-500", "bg-green-500", "bg-blue-500", "bg-orange-500"];
   const size = ["S", "M", "L", "XL", "XXL"];
+  const imgUrls = [
+    "https://placehold.co/400",
+    "https://placehold.co/500",
+    "https://placehold.co/600",
+    "https://placehold.co/700",
+  ];
 
   const { data: cartData } = useGetCartItemsQuery();
   useEffect(() => {
@@ -38,12 +43,11 @@ function ProductDetail() {
 
   const { data: productsData } = useGetListingProductQuery({
     page: 1,
-    limit: 50,
+    limit: 10,
   });
 
   useEffect(() => {
     setProducts(productsData?.data?.products || []);
-    setProduct(listingProduct?.data);
   }, [productsData, id]);
 
   useEffect(() => {
@@ -58,6 +62,13 @@ function ProductDetail() {
     }
   }, [isSuccess]);
 
+  const handleThumbnailClick = (thumbnailUrl) => {
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      mainImage: { url: thumbnailUrl },
+    }));
+  };
+
   return (
     <>
       <div className=" px-5 md:flex justify-between gap-10 flex-wrap text-primary max-w-[1300px] m-auto">
@@ -68,15 +79,19 @@ function ProductDetail() {
             className="m-auto size-[400px]"
           />
           <div className="hidden sm:flex justify-between mt-10">
-            <img src="https://placehold.co/400" alt="" className="w-1/5" />
-            <img src="https://placehold.co/400" alt="" className="w-1/5" />
-            <img src="https://placehold.co/400" alt="" className="w-1/5" />
-            <img src="https://placehold.co/400" alt="" className="w-1/5" />
+            {imgUrls?.map((thumbnailUrl, index) => (
+              <img
+                key={index}
+                src={thumbnailUrl}
+                alt=""
+                className="w-1/5 cursor-pointer"
+                onClick={() => handleThumbnailClick(thumbnailUrl)}
+              />
+            ))}
           </div>
         </div>
         <div className="w-full lg:w-1/2 pt-5 text-base ">
           <h1 className="text-2xl font-semibold">{product?.name}</h1>
-          {/* <h3 className=""> {product?.description}</h3> */}
           <p className="text-secondary-text my-2 ">
             <StarRatings
               rating={4.5}
@@ -97,7 +112,6 @@ function ProductDetail() {
             voluptate ea eligendi libero, pariatur veritatis impedit beatae
             error, placeat qui dignissimos.
           </p>
-
           <div>
             <h3 className="py-3 text-lg font-semibold">Color</h3>
             <div className="flex gap-2 justify-start flex-1">
@@ -108,7 +122,6 @@ function ProductDetail() {
               ))}
             </div>
           </div>
-
           <div>
             <h3 className="py-3 text-lg font-semibold">Size</h3>
             <div className="flex gap-2 justify-start flex-1">
@@ -122,7 +135,6 @@ function ProductDetail() {
               ))}
             </div>
           </div>
-
           <div className="flex gap-3 my-5 h-12">
             <ProductQuantity quantity={quantity} setQuantity={setQuantity} />
             <Button
@@ -141,12 +153,12 @@ function ProductDetail() {
           </div>
         </div>
       </div>
-
       <div className="max-w-[1300px] m-auto">
         <h2 className="text-3xl mt-10 mb-5 font-semibold text-center">
           Releted Products
         </h2>
-        <div className="flex flex-wrap mb-10">
+
+        <div className="px-5 pb-10 grid xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 mx-auto ">
           {products.map((product) => (
             <Product
               key={product.id}

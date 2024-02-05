@@ -48,7 +48,6 @@ function Login() {
     : registerForm.RegisterValidationSchema;
 
   const onSubmit = (values) => {
-    // console.log(values);
     isLoginPage ? authLogin(values) : authRegister(values);
   };
 

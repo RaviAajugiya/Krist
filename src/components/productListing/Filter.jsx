@@ -19,6 +19,7 @@ function Filter({ title, items }) {
     setPriceRange([minPrice, maxPrice]);
   }, []);
 
+  
   const handleCheckboxChange = (itemId) => {
     const updatedCategories = selectedCategories.includes(itemId)
       ? selectedCategories.filter((id) => id !== itemId)
@@ -96,6 +97,7 @@ function Filter({ title, items }) {
           value={priceRange}
           onInput={handlePriceRangeChange}
           onThumbDragEnd={handlePriceRangeDragEnd}
+          className='max-w-[220px]'
         />
       </div>
     </>

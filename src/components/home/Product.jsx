@@ -44,10 +44,8 @@ function Product({ name, price, description, img, id }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.99 }}
             transition={{ duration: 0.2 }}
-            className="product-button absolute w-[calc(100%-1rem)] bottom-0 left-0 bg-black bg-opacity-55 text-white px-4 py-2 rounded-md cursor-pointer"
+            className="product-button absolute m-auto w-[calc(100%-1rem)] bottom-2 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-55 text-white px-4 py-2 rounded-md cursor-pointer"
             onClick={() => {
               !isProductInCart
                 ? addToCart({ id, quantity: 1 })
